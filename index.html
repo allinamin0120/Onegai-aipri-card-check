@@ -274,16 +274,16 @@ function render() {
 // カード押したら所持切替
 div.onclick = () => toggle(card.id);
 
-    if (owned[card.id]) {
-      count++;
-      div.classList.add("owned");
-    }
+if (owned[card.id]) {
+  count++;
+  div.classList.add("owned");
+}
 
-    div.innerHTML =
-　　　(card.img ? '<img src="' + card.img + '" class="card-img">' : '')
-      '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
-      '<div class="card-name">' + card.name + '</div>';
-    
+div.innerHTML =
+  (card.img ? '<img src="' + card.img + '" class="card-img">' : '') +
+  '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
+  '<div class="card-name">' + card.name + '</div>';
+
 const img = div.querySelector(".card-img");
 if (img) {
   img.onclick = (e) => {
