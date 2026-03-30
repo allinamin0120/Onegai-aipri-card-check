@@ -275,7 +275,7 @@ function render() {
   const seriesFilter = document.getElementById("seriesFilter").value;
   const filter = document.getElementById("filter").value;
   const rarityFilter = document.getElementById("rarityFilter").value;
- const search = document.getElementById("search").value;
+  const search = document.getElementById("search").value.toLowerCase().replace(/\s/g, "");
   const onlyUnowned = document.getElementById("onlyUnowned").checked;
   let count = 0;
   let total = 0;
@@ -285,9 +285,9 @@ function render() {
     if (filter !== "all" && card.char !== filter) return;
     if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
     if (search) {
-  const s = search.replace(/\s/g, "");
-  const n = card.name.replace(/\s/g, "");
-  if (!n.includes(s)) return;
+  const name = card.name.toLowerCase().replace(/\s/g, "");
+  const char = card.char.toLowerCase();
+  if (!name.includes(search) && !char.includes(search)) return;
 }
     if (onlyUnowned && owned[card.id]) return;
 
