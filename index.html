@@ -36,6 +36,12 @@
   font-size: 11px;
   color: #666;
 }
+  .card.owned {
+  border: 3px solid gold;
+  background: #fff8dc;
+  transform: scale(1.05);
+}
+  
 body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
 select, input { margin: 5px 5px 10px 0; padding: 5px; }
 </style>
@@ -190,17 +196,21 @@ function render() {
     const div = document.createElement("div");
     div.className = "card";
 
+    div.onclick = () => toggle(card.id);
+
     const checked = owned[card.id] ? "checked" : "";
     if (owned[card.id]) count++;
 
+    if (owned[card.id]) {
+  count++;
+  div.classList.add("owned");
+}
+
 div.innerHTML = `
-  <input type="checkbox" ${checked} onchange="toggle('${card.id}')">
   ${card.img ? `<img src="${card.img}">` : ""}
   <div class="card-info">★${card.rarity} ${card.char}</div>
   <div class="card-name">${card.name}</div>
 `;
-    list.appendChild(div);
-  });
 
   const rate = total ? Math.round((count / total) * 100) : 0;
   document.getElementById("rate").textContent = rate + "%";
