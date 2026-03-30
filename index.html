@@ -94,8 +94,7 @@ function render() {
   const seriesFilter = document.getElementById("seriesFilter").value;
   const filter = document.getElementById("filter").value;
   const rarityFilter = document.getElementById("rarityFilter").value;
-  const search = document.getElementById("search").value.toLowerCase();
-
+ const search = document.getElementById("search").value;
   let count = 0;
   let total = 0;
 
@@ -103,7 +102,6 @@ function render() {
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
     if (filter !== "all" && card.char !== filter) return;
     if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-    if (!card.name.toLowerCase().includes(search)) return;
 
     total++;
 
