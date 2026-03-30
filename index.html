@@ -182,7 +182,7 @@ const cards = [
   { id: "3-22", name: "パステルマカロンオレンジ", char: "あおい", rarity: 3, series: "1弾", img: "images/OA1-043_O.webp" },
 
   { id: "3-23", name: "しなこワールド", char: "いのり", rarity: 3, series: "1弾", img: "images/OA1-044_O.webp" },
-{ id: "3-24", name: "しなこワールド", char: "あおい", rarity: 3, series: "1弾", img: "images/OA1-045_O.webp" },
+  { id: "3-24", name: "しなこワールド", char: "あおい", rarity: 3, series: "1弾", img: "images/OA1-045_O.webp" },
 
 ]; // 
 
@@ -203,7 +203,11 @@ function render() {
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
     if (filter !== "all" && card.char !== filter) return;
     if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-    if (search && !card.name.replace(/\s/g, "").includes(search.replace(/\s/g, ""))) return;
+    if (search) {
+  const s = search.replace(/\s/g, "");
+  const n = card.name.replace(/\s/g, "");
+  if (!n.includes(s)) return;
+}
 
     total++;
 
