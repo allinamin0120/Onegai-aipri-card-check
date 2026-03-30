@@ -214,6 +214,7 @@ function render() {
   const filter = document.getElementById("filter").value;
   const rarityFilter = document.getElementById("rarityFilter").value;
  const search = document.getElementById("search").value;
+  const onlyUnowned = document.getElementById("onlyUnowned").checked;
   let count = 0;
   let total = 0;
 
@@ -226,6 +227,7 @@ function render() {
   const n = card.name.replace(/\s/g, "");
   if (!n.includes(s)) return;
 }
+    if (onlyUnowned && owned[card.id]) return;
 
     total++;
 
