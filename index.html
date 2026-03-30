@@ -83,6 +83,13 @@ select, input {
 .card:hover img {
   transform: scale(1.05);
 }
+  /* PCだけホバー有効（スマホ無効） */
+@media (hover: hover) {
+  .card:hover {
+    transform: scale(1.15);
+    z-index: 10;
+  }
+}
 </style>
 </head>
 
