@@ -10,9 +10,11 @@
 <style>
 body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
 
+/* 共通（PC） */
 #cardList {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
 }
 
 .card {
@@ -100,7 +102,6 @@ select, input {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   }
 }
-  /* スマホ最終版 */
 @media (max-width: 600px) {
 
   body {
@@ -108,7 +109,6 @@ select, input {
   }
 
   #cardList {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
@@ -116,7 +116,6 @@ select, input {
   .card {
     width: 100%;
     margin: 0;
-    padding: 8px;
   }
 
 }
