@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>アイプリカード管理</title>
+<style>
+body { font-family: sans-serif; background: #f5f5f5; }
+.card { background: white; padding: 10px; margin: 5px; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<h1>アイプリカード管理</h1>
+<p>所持率: <span id="rate">0%</span></p>
+
+<div id="cardList"></div>
+
+<script>
+const cards = [
+  "星川みつき SP",
+  "星川みつき SR",
+  "〇〇カード",
+  "△△カード"
+];
+
+// ロード
+let owned = JSON.parse(localStorage.getItem("owned") || "{}");
+
+function render() {
+  const list = document.getElementById("cardList");
+  list.innerHTML = "";
+
+  let count = 0;
+
+  cards.forEach((card, i) => {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    const checked = owned[i] ? "checked" : "";
+    if (owned[i]) count++;
+
+    div.innerHTML = `
+      <input type="checkbox" ${checked} onchange="toggle(${i})">
+      ${card}
+    `;
+    list.appendChild(div);
+  });
+
+  const rate = Math.round((count / cards.length) * 100);
+  document.getElementById("rate").textContent = rate + "%";
+}
+
+function toggle(i) {
+  owned[i] = !owned[i];
+  localStorage.setItem("owned", JSON.stringify(owned));
+  render();
+}
+
+render();
+</script>
+
+</body>
+</html>
