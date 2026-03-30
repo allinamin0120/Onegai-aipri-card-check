@@ -271,13 +271,8 @@ function render() {
     const div = document.createElement("div");
     div.className = "card";
 
-　div.onclick = (e) => {
-  if (e.target.tagName === "IMG") {
-    openModal(card.img); // 画像クリック → 拡大
-  } else {
-    toggle(card.id); // それ以外 → 所持切替
-  }
-};
+// カード押したら所持切替
+div.onclick = () => toggle(card.id);
 
     if (owned[card.id]) {
       count++;
@@ -288,7 +283,14 @@ function render() {
       (card.img ? '<img src="' + card.img + '">' : '') +
       '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
       '<div class="card-name">' + card.name + '</div>';
-
+    
+const img = div.querySelector(".card-img");
+if (img) {
+  img.onclick = (e) => {
+    e.stopPropagation();
+    openModal(card.img);
+  };
+}
     list.appendChild(div);
   });
 
