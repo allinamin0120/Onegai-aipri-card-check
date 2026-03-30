@@ -49,6 +49,33 @@ select, input {
   margin: 5px 5px 10px 0;
   padding: 5px;
 }
+  /* ホバーで浮く */
+.card:hover {
+  transform: scale(1.08);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* 所持済みを光らせる */
+.card.owned {
+  border: 3px solid gold;
+  background: #fff8dc;
+  box-shadow: 0 0 12px gold;
+}
+
+/* レアリティ色（★4） */
+.card-info {
+  font-weight: bold;
+}
+
+.card-info::before {
+  content: "";
+}
+
+/* ちょいアニメーション */
+.card {
+  transition: 0.2s;
+}
 </style>
 </head>
 
