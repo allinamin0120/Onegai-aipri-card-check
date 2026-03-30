@@ -146,7 +146,7 @@ select, input {
 </select>
 
 <select id="rarityFilter" onchange="render()">
-  <option value="all">全レア</option>
+  <option value="all">ALL</option>
   <option value="4">★4</option>
   <option value="3">★3</option>
   <option value="2">★2</option>
@@ -159,6 +159,13 @@ select, input {
   <input type="checkbox" id="onlyUnowned" onchange="render()">
   未所持のみ
 </label>
+
+  <div style="margin:10px 0;">
+  <button onclick="exportData()">📤 データ保存</button>
+  <button onclick="importData()">📥 データ復元</button>
+</div>
+
+<div id="cardList"></div>
 
 <div id="cardList"></div>
 
