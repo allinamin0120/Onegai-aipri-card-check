@@ -100,21 +100,31 @@ select, input {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   }
 }
-  /* スマホだけ */
-@media (max-width: 600px) {
+  @media (max-width: 600px) {
 
   #cardList {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 6px; /* ←ちょい詰める */
   }
 
   .card {
     width: 100%;
     margin: 0;
+    padding: 6px; /* ←ちょい小さく */
+  }
+
+  .card img {
+    width: 100%;
   }
 
 }
+  @media (max-width: 600px) {
+  body {
+    padding: 6px;
+  }
+}
+
  
 </style>
 </head>
