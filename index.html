@@ -271,7 +271,6 @@ function render() {
     const div = document.createElement("div");
     div.className = "card";
 
-// カード押したら所持切替
 div.onclick = () => toggle(card.id);
 
 if (owned[card.id]) {
@@ -280,17 +279,11 @@ if (owned[card.id]) {
 }
 
 div.innerHTML =
-  (card.img ? '<img src="' + card.img + '" class="card-img">' : '') +
+  (card.img ? '<img src="' + card.img + '">' : '')
   '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
   '<div class="card-name">' + card.name + '</div>';
 
-const img = div.querySelector(".card-img");
-if (img) {
-  img.onclick = (e) => {
-    e.stopPropagation();
-    openModal(card.img);
-  };
-}
+
     list.appendChild(div);
   });
 
@@ -305,35 +298,8 @@ function toggle(id) {
 }
 
 render();
-  // モーダル開く
-function openModal(imgSrc) {
-  const modal = document.getElementById("modal");
-  const modalImg = document.getElementById("modalImg");
 
-  modal.style.display = "flex";
-  modalImg.src = imgSrc;
-}
-
-// クリックで閉じる
-window.onload = () => {
-  document.getElementById("modal").onclick = () => {
-    document.getElementById("modal").style.display = "none";
-  };
-};
 </script>
-
-  <div id="modal" style="
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.8);
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-">
-  <img id="modalImg" style="max-width:90%; max-height:90%; border-radius:10px;">
-</div>
 
 </body>
 </html>
