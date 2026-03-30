@@ -203,7 +203,6 @@ function render() {
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
     if (filter !== "all" && card.char !== filter) return;
     if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-    if (search && !card.name.includes(search)) return;
     if (search && !card.name.replace(/\s/g, "").includes(search.replace(/\s/g, ""))) return;
 
     total++;
