@@ -15,7 +15,14 @@ select, input { margin: 5px 5px 10px 0; padding: 5px; }
 
 <p>所持率: <span id="rate">0%</span></p>
 
-<!-- フィルター -->
+<!-- 弾フィルター -->
+<select id="seriesFilter" onchange="render()">
+  <option value="all">全弾</option>
+  <option value="1弾">おねがいアイプリ1弾</option>
+  <option value="SP">SP</option>
+</select>
+
+<!-- キャラ -->
 <select id="filter" onchange="render()">
   <option value="all">全員</option>
   <option value="いのり">いのり</option>
@@ -23,6 +30,7 @@ select, input { margin: 5px 5px 10px 0; padding: 5px; }
   <option value="ぐみ">ぐみ</option>
 </select>
 
+<!-- レア -->
 <select id="rarityFilter" onchange="render()">
   <option value="all">全レア</option>
   <option value="4">★4</option>
@@ -30,6 +38,7 @@ select, input { margin: 5px 5px 10px 0; padding: 5px; }
   <option value="2">★2</option>
 </select>
 
+<!-- 検索 -->
 <input 
   type="text" 
   id="search" 
@@ -41,78 +50,78 @@ select, input { margin: 5px 5px 10px 0; padding: 5px; }
 
 <script>
 const cards = [
-  // ★4
-  { name: "すきすきハートバズリウム", char: "いのり", rarity: 4, img: "" },
-  { name: "ゆめゆめスターバズリウム", char: "あおい", rarity: 4, img: "" },
-  { name: "ゆうじょうスイーツバズリウム", char: "ぐみ", rarity: 4, img: "" },
+  // ===== ★4（1弾）=====
+  { id: "4-1", name: "すきすきハートバズリウム", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-2", name: "ゆめゆめスターバズリウム", char: "あおい", rarity: 4, series: "1弾" },
+  { id: "4-3", name: "ゆうじょうスイーツバズリウム", char: "ぐみ", rarity: 4, series: "1弾" },
 
-  { name: "トキメキトゥインクルピンク", char: "いのり", rarity: 4, img: "" },
-  { name: "トキメキトゥインクルブルー", char: "あおい", rarity: 4, img: "" },
+  { id: "4-4", name: "トキメキトゥインクルピンク", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-5", name: "トキメキトゥインクルブルー", char: "あおい", rarity: 4, series: "1弾" },
 
-  { name: "リボンアイドルピンク", char: "いのり", rarity: 4, img: "" },
-  { name: "リボンアイドルブルー", char: "あおい", rarity: 4, img: "" },
-  { name: "リボンアイドルグリーン", char: "ぐみ", rarity: 4, img: "" },
+  { id: "4-6", name: "リボンアイドルピンク", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-7", name: "リボンアイドルブルー", char: "あおい", rarity: 4, series: "1弾" },
+  { id: "4-8", name: "リボンアイドルグリーン", char: "ぐみ", rarity: 4, series: "1弾" },
 
-  { name: "ふわふわキャット", char: "いのり", rarity: 4, img: "" },
-  { name: "ふわふわキャット", char: "あおい", rarity: 4, img: "" },
+  { id: "4-9", name: "ふわふわキャット", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-10", name: "ふわふわキャット", char: "あおい", rarity: 4, series: "1弾" },
 
-  { name: "ほしのゆうびんやさん", char: "いのり", rarity: 4, img: "" },
-  { name: "ほしのゆうびんやさん", char: "あおい", rarity: 4, img: "" },
-  { name: "ほしのゆうびんやさん", char: "ぐみ", rarity: 4, img: "" },
+  { id: "4-11", name: "ほしのゆうびんやさん", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-12", name: "ほしのゆうびんやさん", char: "あおい", rarity: 4, series: "1弾" },
+  { id: "4-13", name: "ほしのゆうびんやさん", char: "ぐみ", rarity: 4, series: "1弾" },
 
-  { name: "ポップンマシュマロ", char: "いのり", rarity: 4, img: "" },
-  { name: "ポップンマシュマロ", char: "ぐみ", rarity: 4, img: "" },
+  { id: "4-14", name: "ポップンマシュマロ", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-15", name: "ポップンマシュマロ", char: "ぐみ", rarity: 4, series: "1弾" },
 
-  { name: "ゆうじょうさくらツイン　すきすきピンク", char: "いのり", rarity: 4, img: "" },
-  { name: "ゆうじょうさくらツイン　ゆめゆめブルー", char: "あおい", rarity: 4, img: "" },
+  { id: "4-16", name: "ゆうじょうさくらツイン すきすきピンク", char: "いのり", rarity: 4, series: "1弾" },
+  { id: "4-17", name: "ゆうじょうさくらツイン ゆめゆめブルー", char: "あおい", rarity: 4, series: "1弾" },
 
-  // ★3
-  { id: 1, name: "アイプリすきすき", char: "いのり", rarity: 3, img: "" },
-  { id: 2, name: "アイプリすきすき", char: "いのり", rarity: 3, img: "" },
-  { id: 1, name: "アイプリゆめゆめ", char: "あおい", rarity: 3, img: "" },
-  { id: 2, name: "アイプリゆめゆめ", char: "あおい", rarity: 3, img: "" },
-  { name: "アイプリゆうじょう", char: "ぐみ", rarity: 3, img: "" },
+  // ===== ★3 =====
+  { id: "3-1", name: "アイプリすきすき", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-2", name: "アイプリすきすき", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-3", name: "アイプリゆめゆめ", char: "あおい", rarity: 3, series: "1弾" },
+  { id: "3-4", name: "アイプリゆめゆめ", char: "あおい", rarity: 3, series: "1弾" },
+  { id: "3-5", name: "アイプリゆうじょう", char: "ぐみ", rarity: 3, series: "1弾" },
 
-  { name: "ラブリーマーガレット", char: "いのり", rarity: 3, img: "" },
-  { name: "ラブリーマーガレット", char: "あおい", rarity: 3, img: "" },
-  { name: "ラブリーマーガレット", char: "ぐみ", rarity: 3, img: "" },
+  { id: "3-6", name: "ラブリーマーガレット", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-7", name: "ラブリーマーガレット", char: "あおい", rarity: 3, series: "1弾" },
+  { id: "3-8", name: "ラブリーマーガレット", char: "ぐみ", rarity: 3, series: "1弾" },
 
-  { name: "やきたてクッキー", char: "いのり", rarity: 3, img: "" },
-  { name: "やきたてクッキー", char: "あおい", rarity: 3, img: "" },
-  { name: "やきたてクッキーココア", char: "ぐみ", rarity: 3, img: "" },
+  { id: "3-9", name: "やきたてクッキー", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-10", name: "やきたてクッキー", char: "あおい", rarity: 3, series: "1弾" },
+  { id: "3-11", name: "やきたてクッキーココア", char: "ぐみ", rarity: 3, series: "1弾" },
 
-  { name: "メロンソーダ", char: "いのり", rarity: 3, img: "" },
-  { name: "メロンソーダ", char: "あおい", rarity: 3, img: "" },
-  { name: "メロンソーダ", char: "ぐみ", rarity: 3, img: "" },
+  { id: "3-12", name: "メロンソーダ", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-13", name: "メロンソーダ", char: "あおい", rarity: 3, series: "1弾" },
+  { id: "3-14", name: "メロンソーダ", char: "ぐみ", rarity: 3, series: "1弾" },
 
-  { name: "アイスクリーム", char: "いのり", rarity: 3, img: "" },
-  { name: "アイスクリーム", char: "ぐみ", rarity: 3, img: "" },
+  { id: "3-15", name: "アイスクリーム", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-16", name: "アイスクリーム", char: "ぐみ", rarity: 3, series: "1弾" },
 
-  { name: "ひらめきたんていクラシック", char: "いのり", rarity: 3, img: "" },
-  { name: "ひらめきたんていクラシック", char: "あおい", rarity: 3, img: "" },
+  { id: "3-17", name: "ひらめきたんていクラシック", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-18", name: "ひらめきたんていクラシック", char: "あおい", rarity: 3, series: "1弾" },
 
-  { name: "ハニービー", char: "あおい", rarity: 3, img: "" },
-  { name: "ハニービー", char: "ぐみ", rarity: 3, img: "" },
+  { id: "3-19", name: "ハニービー", char: "あおい", rarity: 3, series: "1弾" },
+  { id: "3-20", name: "ハニービー", char: "ぐみ", rarity: 3, series: "1弾" },
 
-  { name: "パステルマカロンオレンジ", char: "いのり", rarity: 3, img: "" },
-  { name: "パステルマカロンオレンジ", char: "あおい", rarity: 3, img: "" },
+  { id: "3-21", name: "パステルマカロンオレンジ", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-22", name: "パステルマカロンオレンジ", char: "あおい", rarity: 3, series: "1弾" },
 
-  { name: "しなこワールド", char: "いのり", rarity: 3, img: "" },
-  { name: "しなこワールド", char: "あおい", rarity: 3, img: "" },
+  { id: "3-23", name: "しなこワールド", char: "いのり", rarity: 3, series: "1弾" },
+  { id: "3-24", name: "しなこワールド", char: "あおい", rarity: 3, series: "1弾" },
 
-  // ★2
-  { name: "おねがいちゅうがくせいふく", char: "いのり", rarity: 2, img: "" },
-  { name: "おねがいちゅうがくせいふく", char: "あおい", rarity: 2, img: "" },
-  { name: "おねがいちゅうがくせいふく", char: "ぐみ", rarity: 2, img: "" },
+  // ===== ★2 =====
+  { id: "2-1", name: "おねがいちゅうがくせいふく", char: "いのり", rarity: 2, series: "1弾" },
+  { id: "2-2", name: "おねがいちゅうがくせいふく", char: "あおい", rarity: 2, series: "1弾" },
+  { id: "2-3", name: "おねがいちゅうがくせいふく", char: "ぐみ", rarity: 2, series: "1弾" },
 
-  { name: "ガーリーニット", char: "いのり", rarity: 2, img: "" },
-  { name: "ガーリーニットホワイト", char: "あおい", rarity: 2, img: "" },
-  { name: "ガーリーニットイエロー", char: "ぐみ", rarity: 2, img: "" },
+  { id: "2-4", name: "ガーリーニット", char: "いのり", rarity: 2, series: "1弾" },
+  { id: "2-5", name: "ガーリーニットホワイト", char: "あおい", rarity: 2, series: "1弾" },
+  { id: "2-6", name: "ガーリーニットイエロー", char: "ぐみ", rarity: 2, series: "1弾" },
 
-  { name: "チェックセットアップピンク", char: "いのり", rarity: 2, img: "" },
-  { name: "チェックセットアップピンク", char: "あおい", rarity: 2, img: "" },
+  { id: "2-7", name: "チェックセットアップピンク", char: "いのり", rarity: 2, series: "1弾" },
+  { id: "2-8", name: "チェックセットアップピンク", char: "あおい", rarity: 2, series: "1弾" },
 
-  { name: "ツートンジャケット", char: "ぐみ", rarity: 2, img: "" }
+  { id: "2-9", name: "ツートンジャケット", char: "ぐみ", rarity: 2, series: "1弾" }
 ];
 
 let owned = JSON.parse(localStorage.getItem("owned") || "{}");
@@ -121,6 +130,7 @@ function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
 
+  const seriesFilter = document.getElementById("seriesFilter").value;
   const filter = document.getElementById("filter").value;
   const rarityFilter = document.getElementById("rarityFilter").value;
   const search = document.getElementById("search").value.toLowerCase();
@@ -128,7 +138,8 @@ function render() {
   let count = 0;
   let total = 0;
 
-  cards.forEach((card, i) => {
+  cards.forEach((card) => {
+    if (seriesFilter !== "all" && card.series !== seriesFilter) return;
     if (filter !== "all" && card.char !== filter) return;
     if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
     if (!card.name.toLowerCase().includes(search)) return;
@@ -138,12 +149,12 @@ function render() {
     const div = document.createElement("div");
     div.className = "card";
 
-    const checked = owned[i] ? "checked" : "";
-    if (owned[i]) count++;
+    const checked = owned[card.id] ? "checked" : "";
+    if (owned[card.id]) count++;
 
     div.innerHTML = `
-      <input type="checkbox" ${checked} onchange="toggle(${i})">
-      <span>★${card.rarity} ${card.char} - ${card.name}</span>
+      <input type="checkbox" ${checked} onchange="toggle('${card.id}')">
+      <span>[${card.series}] ★${card.rarity} ${card.char} - ${card.name}</span>
     `;
 
     list.appendChild(div);
@@ -153,8 +164,8 @@ function render() {
   document.getElementById("rate").textContent = rate + "%";
 }
 
-function toggle(i) {
-  owned[i] = !owned[i];
+function toggle(id) {
+  owned[id] = !owned[id];
   localStorage.setItem("owned", JSON.stringify(owned));
   render();
 }
