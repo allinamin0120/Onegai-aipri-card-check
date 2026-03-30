@@ -100,38 +100,27 @@ select, input {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   }
 }
-  @media (max-width: 600px) {
+  /* スマホ最終版 */
+@media (max-width: 600px) {
+
+  body {
+    padding: 8px;
+  }
 
   #cardList {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px; /* ←ちょい詰める */
-    padding: 0;
+    gap: 8px;
   }
 
   .card {
     width: 100%;
     margin: 0;
-    padding: 6px; /* ←ちょい小さく */
-  }
-
-  .card img {
-    width: 100%;
+    padding: 8px;
   }
 
 }
-  @media (max-width: 600px) {
-  body {
-    padding: 6px;
-  }
-}
-@media (max-width: 600px) {
-
-  .card {
-    box-sizing: border-box; /* ←これ超重要 */
-  }
-
-}
+ 
  
 </style>
 </head>
