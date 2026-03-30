@@ -639,26 +639,44 @@ cards.forEach((card) => {
     div.classList.add("owned");
   }
 
-div.innerHTML =
-  (card.img ? '<img src="' + card.img + '">' : '') +
-  '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
-  '<div class="card-name">' + card.name + '</div>';
+cards.forEach((card) => {
+  if (seriesFilter !== "all" && card.series !== seriesFilter) return;
+  if (filter !== "all" && card.char !== filter) return;
+  if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
+  if (!card.name.toLowerCase().includes(search)) return;
 
-  // 
+  total++;
+
+  const div = document.createElement("div");
+  div.className = "card";
+
+  div.onclick = () => toggle(card.id);
+
+  if (owned[card.id]) {
+    count++;
+    div.classList.add("owned");
+  }
+
+  // 👇 安全な書き方
+  div.innerHTML =
+    (card.img ? '<img src="' + card.img + '">' : '') +
+    '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
+    '<div class="card-name">' + card.name + '</div>';
+
   list.appendChild(div);
 });
 
-// 
+// 👇 ここはforEachの外
 const rate = total ? Math.round((count / total) * 100) : 0;
-document.getElementById("rate").textContent = rate + "%"
-  }
+document.getElementById("rate").textContent = rate + "%";
+}
 
-  // 
+// 👇 toggle関数
 function toggle(id) {
   owned[id] = !owned[id];
   localStorage.setItem("owned", JSON.stringify(owned));
   render();
 }
 
-// 
+// 👇 初期表示
 render();
