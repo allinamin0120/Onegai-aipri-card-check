@@ -162,12 +162,11 @@ function render() {
     const checked = owned[card.id] ? "checked" : "";
     if (owned[card.id]) count++;
 
-  div.innerHTML = `
+div.innerHTML = `
   <input type="checkbox" ${checked} onchange="toggle('${card.id}')">
   ${card.img ? `<img src="${card.img}" width="60">` : ""}
   <span>[${card.series}] ★${card.rarity} ${card.char} - ${card.name}</span>
 `;
-
     list.appendChild(div);
   });
 
