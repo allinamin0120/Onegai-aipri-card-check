@@ -112,6 +112,11 @@ select, input {
 
 <input type="text" id="search" placeholder="検索" oninput="render()">
 
+  <label style="display:block; margin-bottom:10px;">
+  <input type="checkbox" id="onlyUnowned" onchange="render()">
+  未所持のみ
+</label>
+
 <div id="cardList"></div>
 
 <script>
