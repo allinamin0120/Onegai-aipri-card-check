@@ -313,8 +313,10 @@ function openModal(imgSrc) {
 }
 
 // クリックで閉じる
-document.getElementById("modal").onclick = () => {
-  document.getElementById("modal").style.display = "none";
+window.onload = () => {
+  document.getElementById("modal").onclick = () => {
+    document.getElementById("modal").style.display = "none";
+  };
 };
 </script>
 
