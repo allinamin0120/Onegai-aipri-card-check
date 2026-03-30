@@ -185,45 +185,34 @@ function render() {
   let count = 0;
   let total = 0;
 
-  cards.forEach((card) => {
-    if (seriesFilter !== "all" && card.series !== seriesFilter) return;
-    if (filter !== "all" && card.char !== filter) return;
-    if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-    if (!card.name.toLowerCase().includes(search)) return;
+cards.forEach((card) => {
+  if (seriesFilter !== "all" && card.series !== seriesFilter) return;
+  if (filter !== "all" && card.char !== filter) return;
+  if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
+  if (!card.name.toLowerCase().includes(search)) return;
 
-    total++;
+  total++;
 
-    const div = document.createElement("div");
-    div.className = "card";
+  const div = document.createElement("div");
+  div.className = "card";
 
-    div.onclick = () => toggle(card.id);
+  div.onclick = () => toggle(card.id);
 
-    const checked = owned[card.id] ? "checked" : "";
-    if (owned[card.id]) count++;
+  if (owned[card.id]) {
+    count++;
+    div.classList.add("owned");
+  }
 
-    if (owned[card.id]) {
-  count++;
-  div.classList.add("owned");
-}
+  div.innerHTML = `
+    ${card.img ? `<img src="${card.img}">` : ""}
+    <div class="card-info">★${card.rarity} ${card.char}</div>
+    <div class="card-name">${card.name}</div>
+  `;
 
-div.innerHTML = `
-  ${card.img ? `<img src="${card.img}">` : ""}
-  <div class="card-info">★${card.rarity} ${card.char}</div>
-  <div class="card-name">${card.name}</div>
-`;
+  // 
+  list.appendChild(div);
+});
 
-  const rate = total ? Math.round((count / total) * 100) : 0;
-  document.getElementById("rate").textContent = rate + "%";
-}
-
-function toggle(id) {
-  owned[id] = !owned[id];
-  localStorage.setItem("owned", JSON.stringify(owned));
-  render();
-}
-
-render();
-</script>
-
-</body>
-</html>
+// 
+const rate = total ? Math.round((count / total) * 100) : 0;
+document.getElementById("rate").textContent = rate + "%";
