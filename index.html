@@ -126,6 +126,32 @@ select, input {
     margin-bottom: 8px;
   }
 }
+  /* スマホ：見やすい2列 */
+@media (max-width: 600px) {
+  #cardList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .card img {
+    width: 100%;
+  }
+
+  .card-name {
+    font-size: 12px;
+  }
+
+  .card-info {
+    font-size: 11px;
+  }
+}
 </style>
 </head>
 
