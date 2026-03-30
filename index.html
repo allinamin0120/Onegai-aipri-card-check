@@ -196,7 +196,31 @@ select, input {
     width: 100%;
   }
 }
+@media (max-width: 600px) {
+  #cardList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px; /* ←少し狭める */
+  }
 
+  .card {
+    width: 100%;
+    margin: 0;
+    padding: 6px; /* ←小さく */
+  }
+
+  .card img {
+    width: 100%;
+  }
+
+  .card-name {
+    font-size: 10px; /* ←少し小さく */
+  }
+
+  .card-info {
+    font-size: 9px;
+  }
+}
 </style>
 </head>
 
