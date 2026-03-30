@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>アイプリカード管理</title>
+
 <style>
-  #cardList {
+body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
+
+#cardList {
   display: flex;
   flex-wrap: wrap;
 }
@@ -36,30 +39,29 @@
   font-size: 11px;
   color: #666;
 }
-  .card.owned {
+
+.card.owned {
   border: 3px solid gold;
   background: #fff8dc;
-  transform: scale(1.05);
 }
-  
-body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
-select, input { margin: 5px 5px 10px 0; padding: 5px; }
+
+select, input {
+  margin: 5px 5px 10px 0;
+  padding: 5px;
+}
 </style>
 </head>
+
 <body>
 
 <h1>アイプリカード管理</h1>
-
 <p>所持率: <span id="rate">0%</span></p>
 
-<!-- 弾フィルター -->
 <select id="seriesFilter" onchange="render()">
   <option value="all">全弾</option>
-  <option value="1弾">おねがいアイプリ1弾</option>
-  <option value="SP">SP</option>
+  <option value="1弾">1弾</option>
 </select>
 
-<!-- キャラ -->
 <select id="filter" onchange="render()">
   <option value="all">全員</option>
   <option value="いのり">いのり</option>
@@ -67,7 +69,6 @@ select, input { margin: 5px 5px 10px 0; padding: 5px; }
   <option value="ぐみ">ぐみ</option>
 </select>
 
-<!-- レア -->
 <select id="rarityFilter" onchange="render()">
   <option value="all">全レア</option>
   <option value="4">★4</option>
@@ -75,100 +76,13 @@ select, input { margin: 5px 5px 10px 0; padding: 5px; }
   <option value="2">★2</option>
 </select>
 
-<!-- 検索 -->
-<input 
-  type="text" 
-  id="search" 
-  placeholder="カード名で検索" 
-  oninput="render()"
->
+<input type="text" id="search" placeholder="検索" oninput="render()">
 
 <div id="cardList"></div>
 
 <script>
 const cards = [
-  // ===== ★4（絵違いあり）=====
-  // ★4
-{ id: "4-1", name: "すきすきハートバズリウム①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-001_O.webp" },
-{ id: "4-2", name: "すきすきハートバズリウム②", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-002_O.webp" },
-
-{ id: "4-3", name: "ゆめゆめスターバズリウム①", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-003_O.webp" },
-{ id: "4-4", name: "ゆめゆめスターバズリウム②", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-004_O.webp" },
-
-{ id: "4-5", name: "ゆうじょうスイーツバズリウム", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-005_O.webp" },
-
-{ id: "4-6", name: "トキメキトゥインクルピンク①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-006_O.webp" },
-{ id: "4-7", name: "トキメキトゥインクルピンク②", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-007_O.webp" },
-
-{ id: "4-8", name: "トキメキトゥインクルブルー①", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-008_O.webp" },
-{ id: "4-9", name: "トキメキトゥインクルブルー②", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-009_O.webp" },
-
-{ id: "4-10", name: "リボンアイドルピンク", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-010_O.webp" },
-{ id: "4-11", name: "リボンアイドルブルー", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-011_O.webp" },
-{ id: "4-12", name: "リボンアイドルグリーン", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-012_O.webp" },
-
-{ id: "4-13", name: "ふわふわキャット", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-013_O.webp" },
-{ id: "4-14", name: "ふわふわキャット", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-014_O.webp" },
-
-{ id: "4-15", name: "ほしのゆうびんやさん", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-015_O.webp" },
-{ id: "4-16", name: "ほしのゆうびんやさん", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-016_O.webp" },
-{ id: "4-17", name: "ほしのゆうびんやさん", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-017_O.webp" },
-
-{ id: "4-18", name: "ポップンマシュマロ", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-018_O.webp" },
-{ id: "4-19", name: "ポップンマシュマロ", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-019_O.webp" },
-
-{ id: "4-20", name: "ゆうじょうさくらツイン すきすきピンク", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-020_O.webp" },
-{ id: "4-21", name: "ゆうじょうさくらツイン ゆめゆめブルー", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-021_O.webp" },
-
-  // ===== ★3（絵違いあり）=====
-  { id: "3-1", name: "アイプリすきすき①", char: "いのり", rarity: 3, series: "1弾", img: "images/3-1.webp" },
-  { id: "3-2", name: "アイプリすきすき②", char: "いのり", rarity: 3, series: "1弾", img: "images/3-2.webp" },
-
-  { id: "3-3", name: "アイプリゆめゆめ①", char: "あおい", rarity: 3, series: "1弾", img: "images/3-3.webp" },
-  { id: "3-4", name: "アイプリゆめゆめ②", char: "あおい", rarity: 3, series: "1弾", img: "images/3-4.webp" },
-
-  { id: "3-5", name: "アイプリゆうじょう", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-5.webp" },
-
-  { id: "3-6", name: "ラブリーマーガレット", char: "いのり", rarity: 3, series: "1弾", img: "images/3-6.webp" },
-  { id: "3-7", name: "ラブリーマーガレット", char: "あおい", rarity: 3, series: "1弾", img: "images/3-7.webp" },
-  { id: "3-8", name: "ラブリーマーガレット", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-8.webp" },
-
-  { id: "3-9", name: "やきたてクッキー", char: "いのり", rarity: 3, series: "1弾", img: "images/3-9.webp" },
-  { id: "3-10", name: "やきたてクッキー", char: "あおい", rarity: 3, series: "1弾", img: "images/3-10.webp" },
-  { id: "3-11", name: "やきたてクッキーココア", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-11.webp" },
-
-  { id: "3-12", name: "メロンソーダ", char: "いのり", rarity: 3, series: "1弾", img: "images/3-12.webp" },
-  { id: "3-13", name: "メロンソーダ", char: "あおい", rarity: 3, series: "1弾", img: "images/3-13.webp" },
-  { id: "3-14", name: "メロンソーダ", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-14.webp" },
-
-  { id: "3-15", name: "アイスクリーム", char: "いのり", rarity: 3, series: "1弾", img: "images/3-15.webp" },
-  { id: "3-16", name: "アイスクリーム", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-16.webp" },
-
-  { id: "3-17", name: "ひらめきたんていクラシック", char: "いのり", rarity: 3, series: "1弾", img: "images/3-17.webp" },
-  { id: "3-18", name: "ひらめきたんていクラシック", char: "あおい", rarity: 3, series: "1弾", img: "images/3-18.webp" },
-
-  { id: "3-19", name: "ハニービー", char: "あおい", rarity: 3, series: "1弾", img: "images/3-19.webp" },
-  { id: "3-20", name: "ハニービー", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-20.webp" },
-
-  { id: "3-21", name: "パステルマカロンオレンジ", char: "いのり", rarity: 3, series: "1弾", img: "images/3-21.webp" },
-  { id: "3-22", name: "パステルマカロンオレンジ", char: "あおい", rarity: 3, series: "1弾", img: "images/3-22.webp" },
-
-  { id: "3-23", name: "しなこワールド", char: "いのり", rarity: 3, series: "1弾", img: "images/3-23.webp" },
-  { id: "3-24", name: "しなこワールド", char: "あおい", rarity: 3, series: "1弾", img: "images/3-24.webp" },
-
-  // ===== ★2 =====
-  { id: "2-1", name: "おねがいちゅうがくせいふく", char: "いのり", rarity: 2, series: "1弾", img: "images/2-1.webp" },
-  { id: "2-2", name: "おねがいちゅうがくせいふく", char: "あおい", rarity: 2, series: "1弾", img: "images/2-2.webp" },
-  { id: "2-3", name: "おねがいちゅうがくせいふく", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-3.webp" },
-
-  { id: "2-4", name: "ガーリーニット", char: "いのり", rarity: 2, series: "1弾", img: "images/2-4.webp" },
-  { id: "2-5", name: "ガーリーニットホワイト", char: "あおい", rarity: 2, series: "1弾", img: "images/2-5.webp" },
-  { id: "2-6", name: "ガーリーニットイエロー", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-6.webp" },
-
-  { id: "2-7", name: "チェックセットアップピンク", char: "いのり", rarity: 2, series: "1弾", img: "images/2-7.webp" },
-  { id: "2-8", name: "チェックセットアップピンク", char: "あおい", rarity: 2, series: "1弾", img: "images/2-8.webp" },
-
-  { id: "2-9", name: "ツートンジャケット", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-9.webp" }
+  { id: "1", name: "すきすきハートバズリウム①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-001_O.webp" }
 ];
 
 let owned = JSON.parse(localStorage.getItem("owned") || "{}");
@@ -185,444 +99,7 @@ function render() {
   let count = 0;
   let total = 0;
 
-cards.forEach((card) => {
-  if (seriesFilter !== "all" && card.series !== seriesFilter) return;
-  if (filter !== "all" && card.char !== filter) return;
-  if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-  if (!card.name.toLowerCase().includes(search)) return;
-
-  total++;
-
-  const div = document.createElement("div");
-  div.className = "card";
-
-  div.onclick = () => toggle(card.id);
-
-  if (owned[card.id]) {
-    count++;
-    div.classList.add("owned");
-  }
-
-  div.innerHTML = `
-    ${card.img ? `<img src="${card.img}">` : ""}
-    <div class="card-info">★${card.rarity} ${card.char}</div>
-    <div class="card-name">${card.name}</div>
-  `;
-
-  // 
-  list.appendChild(div);
-});
-
-// 
-const rate = total ? Math.round((count / total) * 100) : 0;
-document.getElementById("rate").textContent = rate + "%";
-  <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>アイプリカード管理</title>
-<style>
-  #cardList {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: white;
-  padding: 10px;
-  margin: 8px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 120px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card img {
-  width: 100px;
-  border-radius: 8px;
-}
-
-.card-name {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 5px;
-}
-
-.card-info {
-  font-size: 11px;
-  color: #666;
-}
-  .card.owned {
-  border: 3px solid gold;
-  background: #fff8dc;
-  transform: scale(1.05);
-}
-  
-body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
-select, input { margin: 5px 5px 10px 0; padding: 5px; }
-</style>
-</head>
-<body>
-
-<h1>アイプリカード管理</h1>
-
-<p>所持率: <span id="rate">0%</span></p>
-
-<!-- 弾フィルター -->
-<select id="seriesFilter" onchange="render()">
-  <option value="all">全弾</option>
-  <option value="1弾">おねがいアイプリ1弾</option>
-  <option value="SP">SP</option>
-</select>
-
-<!-- キャラ -->
-<select id="filter" onchange="render()">
-  <option value="all">全員</option>
-  <option value="いのり">いのり</option>
-  <option value="あおい">あおい</option>
-  <option value="ぐみ">ぐみ</option>
-</select>
-
-<!-- レア -->
-<select id="rarityFilter" onchange="render()">
-  <option value="all">全レア</option>
-  <option value="4">★4</option>
-  <option value="3">★3</option>
-  <option value="2">★2</option>
-</select>
-
-<!-- 検索 -->
-<input 
-  type="text" 
-  id="search" 
-  placeholder="カード名で検索" 
-  oninput="render()"
->
-
-<div id="cardList"></div>
-
-<script>
-const cards = [
-  // ===== ★4（絵違いあり）=====
-  // ★4
-{ id: "4-1", name: "すきすきハートバズリウム①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-001_O.webp" },
-{ id: "4-2", name: "すきすきハートバズリウム②", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-002_O.webp" },
-
-{ id: "4-3", name: "ゆめゆめスターバズリウム①", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-003_O.webp" },
-{ id: "4-4", name: "ゆめゆめスターバズリウム②", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-004_O.webp" },
-
-{ id: "4-5", name: "ゆうじょうスイーツバズリウム", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-005_O.webp" },
-
-{ id: "4-6", name: "トキメキトゥインクルピンク①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-006_O.webp" },
-{ id: "4-7", name: "トキメキトゥインクルピンク②", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-007_O.webp" },
-
-{ id: "4-8", name: "トキメキトゥインクルブルー①", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-008_O.webp" },
-{ id: "4-9", name: "トキメキトゥインクルブルー②", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-009_O.webp" },
-
-{ id: "4-10", name: "リボンアイドルピンク", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-010_O.webp" },
-{ id: "4-11", name: "リボンアイドルブルー", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-011_O.webp" },
-{ id: "4-12", name: "リボンアイドルグリーン", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-012_O.webp" },
-
-{ id: "4-13", name: "ふわふわキャット", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-013_O.webp" },
-{ id: "4-14", name: "ふわふわキャット", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-014_O.webp" },
-
-{ id: "4-15", name: "ほしのゆうびんやさん", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-015_O.webp" },
-{ id: "4-16", name: "ほしのゆうびんやさん", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-016_O.webp" },
-{ id: "4-17", name: "ほしのゆうびんやさん", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-017_O.webp" },
-
-{ id: "4-18", name: "ポップンマシュマロ", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-018_O.webp" },
-{ id: "4-19", name: "ポップンマシュマロ", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-019_O.webp" },
-
-{ id: "4-20", name: "ゆうじょうさくらツイン すきすきピンク", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-020_O.webp" },
-{ id: "4-21", name: "ゆうじょうさくらツイン ゆめゆめブルー", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-021_O.webp" },
-
-  // ===== ★3（絵違いあり）=====
-  { id: "3-1", name: "アイプリすきすき①", char: "いのり", rarity: 3, series: "1弾", img: "images/3-1.webp" },
-  { id: "3-2", name: "アイプリすきすき②", char: "いのり", rarity: 3, series: "1弾", img: "images/3-2.webp" },
-
-  { id: "3-3", name: "アイプリゆめゆめ①", char: "あおい", rarity: 3, series: "1弾", img: "images/3-3.webp" },
-  { id: "3-4", name: "アイプリゆめゆめ②", char: "あおい", rarity: 3, series: "1弾", img: "images/3-4.webp" },
-
-  { id: "3-5", name: "アイプリゆうじょう", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-5.webp" },
-
-  { id: "3-6", name: "ラブリーマーガレット", char: "いのり", rarity: 3, series: "1弾", img: "images/3-6.webp" },
-  { id: "3-7", name: "ラブリーマーガレット", char: "あおい", rarity: 3, series: "1弾", img: "images/3-7.webp" },
-  { id: "3-8", name: "ラブリーマーガレット", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-8.webp" },
-
-  { id: "3-9", name: "やきたてクッキー", char: "いのり", rarity: 3, series: "1弾", img: "images/3-9.webp" },
-  { id: "3-10", name: "やきたてクッキー", char: "あおい", rarity: 3, series: "1弾", img: "images/3-10.webp" },
-  { id: "3-11", name: "やきたてクッキーココア", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-11.webp" },
-
-  { id: "3-12", name: "メロンソーダ", char: "いのり", rarity: 3, series: "1弾", img: "images/3-12.webp" },
-  { id: "3-13", name: "メロンソーダ", char: "あおい", rarity: 3, series: "1弾", img: "images/3-13.webp" },
-  { id: "3-14", name: "メロンソーダ", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-14.webp" },
-
-  { id: "3-15", name: "アイスクリーム", char: "いのり", rarity: 3, series: "1弾", img: "images/3-15.webp" },
-  { id: "3-16", name: "アイスクリーム", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-16.webp" },
-
-  { id: "3-17", name: "ひらめきたんていクラシック", char: "いのり", rarity: 3, series: "1弾", img: "images/3-17.webp" },
-  { id: "3-18", name: "ひらめきたんていクラシック", char: "あおい", rarity: 3, series: "1弾", img: "images/3-18.webp" },
-
-  { id: "3-19", name: "ハニービー", char: "あおい", rarity: 3, series: "1弾", img: "images/3-19.webp" },
-  { id: "3-20", name: "ハニービー", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-20.webp" },
-
-  { id: "3-21", name: "パステルマカロンオレンジ", char: "いのり", rarity: 3, series: "1弾", img: "images/3-21.webp" },
-  { id: "3-22", name: "パステルマカロンオレンジ", char: "あおい", rarity: 3, series: "1弾", img: "images/3-22.webp" },
-
-  { id: "3-23", name: "しなこワールド", char: "いのり", rarity: 3, series: "1弾", img: "images/3-23.webp" },
-  { id: "3-24", name: "しなこワールド", char: "あおい", rarity: 3, series: "1弾", img: "images/3-24.webp" },
-
-  // ===== ★2 =====
-  { id: "2-1", name: "おねがいちゅうがくせいふく", char: "いのり", rarity: 2, series: "1弾", img: "images/2-1.webp" },
-  { id: "2-2", name: "おねがいちゅうがくせいふく", char: "あおい", rarity: 2, series: "1弾", img: "images/2-2.webp" },
-  { id: "2-3", name: "おねがいちゅうがくせいふく", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-3.webp" },
-
-  { id: "2-4", name: "ガーリーニット", char: "いのり", rarity: 2, series: "1弾", img: "images/2-4.webp" },
-  { id: "2-5", name: "ガーリーニットホワイト", char: "あおい", rarity: 2, series: "1弾", img: "images/2-5.webp" },
-  { id: "2-6", name: "ガーリーニットイエロー", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-6.webp" },
-
-  { id: "2-7", name: "チェックセットアップピンク", char: "いのり", rarity: 2, series: "1弾", img: "images/2-7.webp" },
-  { id: "2-8", name: "チェックセットアップピンク", char: "あおい", rarity: 2, series: "1弾", img: "images/2-8.webp" },
-
-  { id: "2-9", name: "ツートンジャケット", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-9.webp" }
-];
-
-let owned = JSON.parse(localStorage.getItem("owned") || "{}");
-
-function render() {
-  const list = document.getElementById("cardList");
-  list.innerHTML = "";
-
-  const seriesFilter = document.getElementById("seriesFilter").value;
-  const filter = document.getElementById("filter").value;
-  const rarityFilter = document.getElementById("rarityFilter").value;
-  const search = document.getElementById("search").value.toLowerCase();
-
-  let count = 0;
-  let total = 0;
-
-cards.forEach((card) => {
-  if (seriesFilter !== "all" && card.series !== seriesFilter) return;
-  if (filter !== "all" && card.char !== filter) return;
-  if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-  if (!card.name.toLowerCase().includes(search)) return;
-
-  total++;
-
-  const div = document.createElement("div");
-  div.className = "card";
-
-  div.onclick = () => toggle(card.id);
-
-  if (owned[card.id]) {
-    count++;
-    div.classList.add("owned");
-  }
-
-  div.innerHTML = `
-    ${card.img ? `<img src="${card.img}">` : ""}
-    <div class="card-info">★${card.rarity} ${card.char}</div>
-    <div class="card-name">${card.name}</div>
-  `;
-
-  // 
-  list.appendChild(div);
-});
-
-// 
-const rate = total ? Math.round((count / total) * 100) : 0;
-document.getElementById("rate").textContent = rate + "%";
-  <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>アイプリカード管理</title>
-<style>
-  #cardList {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: white;
-  padding: 10px;
-  margin: 8px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 120px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card img {
-  width: 100px;
-  border-radius: 8px;
-}
-
-.card-name {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 5px;
-}
-
-.card-info {
-  font-size: 11px;
-  color: #666;
-}
-  .card.owned {
-  border: 3px solid gold;
-  background: #fff8dc;
-  transform: scale(1.05);
-}
-  
-body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
-select, input { margin: 5px 5px 10px 0; padding: 5px; }
-</style>
-</head>
-<body>
-
-<h1>アイプリカード管理</h1>
-
-<p>所持率: <span id="rate">0%</span></p>
-
-<!-- 弾フィルター -->
-<select id="seriesFilter" onchange="render()">
-  <option value="all">全弾</option>
-  <option value="1弾">おねがいアイプリ1弾</option>
-  <option value="SP">SP</option>
-</select>
-
-<!-- キャラ -->
-<select id="filter" onchange="render()">
-  <option value="all">全員</option>
-  <option value="いのり">いのり</option>
-  <option value="あおい">あおい</option>
-  <option value="ぐみ">ぐみ</option>
-</select>
-
-<!-- レア -->
-<select id="rarityFilter" onchange="render()">
-  <option value="all">全レア</option>
-  <option value="4">★4</option>
-  <option value="3">★3</option>
-  <option value="2">★2</option>
-</select>
-
-<!-- 検索 -->
-<input 
-  type="text" 
-  id="search" 
-  placeholder="カード名で検索" 
-  oninput="render()"
->
-
-<div id="cardList"></div>
-
-<script>
-const cards = [
-  // ===== ★4（絵違いあり）=====
-  // ★4
-{ id: "4-1", name: "すきすきハートバズリウム①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-001_O.webp" },
-{ id: "4-2", name: "すきすきハートバズリウム②", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-002_O.webp" },
-
-{ id: "4-3", name: "ゆめゆめスターバズリウム①", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-003_O.webp" },
-{ id: "4-4", name: "ゆめゆめスターバズリウム②", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-004_O.webp" },
-
-{ id: "4-5", name: "ゆうじょうスイーツバズリウム", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-005_O.webp" },
-
-{ id: "4-6", name: "トキメキトゥインクルピンク①", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-006_O.webp" },
-{ id: "4-7", name: "トキメキトゥインクルピンク②", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-007_O.webp" },
-
-{ id: "4-8", name: "トキメキトゥインクルブルー①", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-008_O.webp" },
-{ id: "4-9", name: "トキメキトゥインクルブルー②", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-009_O.webp" },
-
-{ id: "4-10", name: "リボンアイドルピンク", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-010_O.webp" },
-{ id: "4-11", name: "リボンアイドルブルー", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-011_O.webp" },
-{ id: "4-12", name: "リボンアイドルグリーン", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-012_O.webp" },
-
-{ id: "4-13", name: "ふわふわキャット", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-013_O.webp" },
-{ id: "4-14", name: "ふわふわキャット", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-014_O.webp" },
-
-{ id: "4-15", name: "ほしのゆうびんやさん", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-015_O.webp" },
-{ id: "4-16", name: "ほしのゆうびんやさん", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-016_O.webp" },
-{ id: "4-17", name: "ほしのゆうびんやさん", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-017_O.webp" },
-
-{ id: "4-18", name: "ポップンマシュマロ", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-018_O.webp" },
-{ id: "4-19", name: "ポップンマシュマロ", char: "ぐみ", rarity: 4, series: "1弾", img: "images/OA1-019_O.webp" },
-
-{ id: "4-20", name: "ゆうじょうさくらツイン すきすきピンク", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-020_O.webp" },
-{ id: "4-21", name: "ゆうじょうさくらツイン ゆめゆめブルー", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-021_O.webp" },
-
-  // ===== ★3（絵違いあり）=====
-  { id: "3-1", name: "アイプリすきすき①", char: "いのり", rarity: 3, series: "1弾", img: "images/3-1.webp" },
-  { id: "3-2", name: "アイプリすきすき②", char: "いのり", rarity: 3, series: "1弾", img: "images/3-2.webp" },
-
-  { id: "3-3", name: "アイプリゆめゆめ①", char: "あおい", rarity: 3, series: "1弾", img: "images/3-3.webp" },
-  { id: "3-4", name: "アイプリゆめゆめ②", char: "あおい", rarity: 3, series: "1弾", img: "images/3-4.webp" },
-
-  { id: "3-5", name: "アイプリゆうじょう", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-5.webp" },
-
-  { id: "3-6", name: "ラブリーマーガレット", char: "いのり", rarity: 3, series: "1弾", img: "images/3-6.webp" },
-  { id: "3-7", name: "ラブリーマーガレット", char: "あおい", rarity: 3, series: "1弾", img: "images/3-7.webp" },
-  { id: "3-8", name: "ラブリーマーガレット", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-8.webp" },
-
-  { id: "3-9", name: "やきたてクッキー", char: "いのり", rarity: 3, series: "1弾", img: "images/3-9.webp" },
-  { id: "3-10", name: "やきたてクッキー", char: "あおい", rarity: 3, series: "1弾", img: "images/3-10.webp" },
-  { id: "3-11", name: "やきたてクッキーココア", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-11.webp" },
-
-  { id: "3-12", name: "メロンソーダ", char: "いのり", rarity: 3, series: "1弾", img: "images/3-12.webp" },
-  { id: "3-13", name: "メロンソーダ", char: "あおい", rarity: 3, series: "1弾", img: "images/3-13.webp" },
-  { id: "3-14", name: "メロンソーダ", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-14.webp" },
-
-  { id: "3-15", name: "アイスクリーム", char: "いのり", rarity: 3, series: "1弾", img: "images/3-15.webp" },
-  { id: "3-16", name: "アイスクリーム", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-16.webp" },
-
-  { id: "3-17", name: "ひらめきたんていクラシック", char: "いのり", rarity: 3, series: "1弾", img: "images/3-17.webp" },
-  { id: "3-18", name: "ひらめきたんていクラシック", char: "あおい", rarity: 3, series: "1弾", img: "images/3-18.webp" },
-
-  { id: "3-19", name: "ハニービー", char: "あおい", rarity: 3, series: "1弾", img: "images/3-19.webp" },
-  { id: "3-20", name: "ハニービー", char: "ぐみ", rarity: 3, series: "1弾", img: "images/3-20.webp" },
-
-  { id: "3-21", name: "パステルマカロンオレンジ", char: "いのり", rarity: 3, series: "1弾", img: "images/3-21.webp" },
-  { id: "3-22", name: "パステルマカロンオレンジ", char: "あおい", rarity: 3, series: "1弾", img: "images/3-22.webp" },
-
-  { id: "3-23", name: "しなこワールド", char: "いのり", rarity: 3, series: "1弾", img: "images/3-23.webp" },
-  { id: "3-24", name: "しなこワールド", char: "あおい", rarity: 3, series: "1弾", img: "images/3-24.webp" },
-
-  // ===== ★2 =====
-  { id: "2-1", name: "おねがいちゅうがくせいふく", char: "いのり", rarity: 2, series: "1弾", img: "images/2-1.webp" },
-  { id: "2-2", name: "おねがいちゅうがくせいふく", char: "あおい", rarity: 2, series: "1弾", img: "images/2-2.webp" },
-  { id: "2-3", name: "おねがいちゅうがくせいふく", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-3.webp" },
-
-  { id: "2-4", name: "ガーリーニット", char: "いのり", rarity: 2, series: "1弾", img: "images/2-4.webp" },
-  { id: "2-5", name: "ガーリーニットホワイト", char: "あおい", rarity: 2, series: "1弾", img: "images/2-5.webp" },
-  { id: "2-6", name: "ガーリーニットイエロー", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-6.webp" },
-
-  { id: "2-7", name: "チェックセットアップピンク", char: "いのり", rarity: 2, series: "1弾", img: "images/2-7.webp" },
-  { id: "2-8", name: "チェックセットアップピンク", char: "あおい", rarity: 2, series: "1弾", img: "images/2-8.webp" },
-
-  { id: "2-9", name: "ツートンジャケット", char: "ぐみ", rarity: 2, series: "1弾", img: "images/2-9.webp" }
-];
-
-<script>
-let owned = JSON.parse(localStorage.getItem("owned") || "{}");
-
-function render() {
-  const list = document.getElementById("cardList");
-  list.innerHTML = "";
-
-  const seriesFilter = document.getElementById("seriesFilter").value;
-  const filter = document.getElementById("filter").value;
-  const rarityFilter = document.getElementById("rarityFilter").value;
-  const search = document.getElementById("search").value.toLowerCase();
-
-  let count = 0;
-  let total = 0;
-
-  cards.forEach((card) => {
+  cards.forEach(card => {
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
     if (filter !== "all" && card.char !== filter) return;
     if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
@@ -659,3 +136,7 @@ function toggle(id) {
 }
 
 render();
+</script>
+
+</body>
+</html>
