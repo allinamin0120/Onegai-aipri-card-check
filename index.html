@@ -653,3 +653,13 @@ cards.forEach((card) => {
 const rate = total ? Math.round((count / total) * 100) : 0;
 document.getElementById("rate").textContent = rate + "%"
   }
+
+  // 
+function toggle(id) {
+  owned[id] = !owned[id];
+  localStorage.setItem("owned", JSON.stringify(owned));
+  render();
+}
+
+// 
+render();
