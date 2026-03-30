@@ -4,6 +4,38 @@
 <meta charset="UTF-8">
 <title>アイプリカード管理</title>
 <style>
+  #cardList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width: 100px;
+  border-radius: 8px;
+}
+
+.card-name {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.card-info {
+  font-size: 11px;
+  color: #666;
+}
 body { font-family: sans-serif; background: #f5f5f5; padding: 10px; }
 .card { background: white; padding: 10px; margin: 5px; border-radius: 8px; display:flex; align-items:center; gap:10px; }
 select, input { margin: 5px 5px 10px 0; padding: 5px; }
@@ -164,8 +196,9 @@ function render() {
 
 div.innerHTML = `
   <input type="checkbox" ${checked} onchange="toggle('${card.id}')">
-  ${card.img ? `<img src="${card.img}" width="60">` : ""}
-  <span>[${card.series}] ★${card.rarity} ${card.char} - ${card.name}</span>
+  ${card.img ? `<img src="${card.img}">` : ""}
+  <div class="card-info">★${card.rarity} ${card.char}</div>
+  <div class="card-name">${card.name}</div>
 `;
     list.appendChild(div);
   });
