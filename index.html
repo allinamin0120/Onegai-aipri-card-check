@@ -319,9 +319,8 @@ div.innerHTML =
     list.appendChild(div);
   });
 
-  const rate = total ? Math.round((count / total) * 100) : 0;
-  document.getElementById("rate").textContent = rate + "%";
-}
+const rate = total ? Math.round((count / total) * 100) : 0;
+document.getElementById("rate").textContent = rate + "% (" + count + " / " + total + ")";
 
 function toggle(id) {
   owned[id] = !owned[id];
