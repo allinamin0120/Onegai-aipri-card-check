@@ -161,14 +161,24 @@ select, input {
 #app.shift {
   transform: translateX(260px);
 }
+  .header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#menuButton {
+  position: static; 
+  font-size: 24px;
+  cursor: pointer;
+}
  
 </style>
 </head>
 
 <body>
 
-<div id="menuButton" onclick="toggleMenu()">☰</div>
-  
 <div id="sideMenu">
   <h2>メニュー</h2>
   
@@ -177,8 +187,11 @@ select, input {
 </div>
 
 <div id="app">
-  
-<h1>おねがいアイプリカードコレクション</h1>
+
+  <div class="header">
+    <div id="menuButton" onclick="toggleMenu()">☰</div>
+    <h1>おねがいアイプリカードコレクション</h1>
+  </div>
 <p>所持率: <span id="rate">0%</span></p>
 
 <select id="seriesFilter" onchange="render()">
