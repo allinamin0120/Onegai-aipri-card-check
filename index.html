@@ -403,6 +403,27 @@ function importData() {
     alert("コードが間違ってる！");
   }
 }
+  (function () {
+  const params = new URLSearchParams(location.search);
+  const data = params.get("data");
+  if (!data) return;
+
+  try {
+    let decoded = atob(data);
+    let ids = decoded ? decoded.split(",") : [];
+
+    let newOwned = {};
+    ids.forEach(id => {
+      newOwned[id] = true;
+    });
+
+    localStorage.setItem("owned", JSON.stringify(newOwned));
+
+  } catch (e) {
+    console.log("URLデータ読み込み失敗");
+  }
+})();
+
 render();
 
 </script>
