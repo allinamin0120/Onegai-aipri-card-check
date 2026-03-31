@@ -7,16 +7,17 @@ export const cardsSP = [
 
   { id: "SP-004", name: "アイプリすきすきレッド", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OTOY-002_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
   { id: "SP-005", name: "アイプリゆめゆめブルー", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-003_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
-  { id: "SP-007", name: "おねがいアイプリセーブカード", char: "", rarity: "スペシャル", series: "SP", img: "images/OTOY-005_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
 
-  { id: "SP-006", name: "リボンアイドルパステル", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OTOY-004_O.webp", how: "2026年4/2発売おねがいアイプリ ファイルバッグセット同封" },
-  { id: "SP-007", name: "リボンアイドルパステル", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-005_O.webp", how: "2026年4/2発売おねがいアイプリ ファイルバッグセット同封" },
+  { id: "SP-006", name: "おねがいアイプリセーブカード", char: "", rarity: "スペシャル", series: "SP", img: "images/OTOY-005_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
 
-  { id: "SP-008", name: "プリズムハートパープル", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-015_O.webp", how: "4/2～おねがいアイプリ ミラーパクトご購入キャンペーン" },
+  { id: "SP-007", name: "リボンアイドルパステル", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OTOY-004_O.webp", how: "2026年4/2発売おねがいアイプリ ファイルバッグセット同封" },
+  { id: "SP-008", name: "リボンアイドルパステル", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-005_O.webp", how: "2026年4/2発売おねがいアイプリ ファイルバッグセット同封" },
 
-  { id: "SP-009", name: "すきのクリスタルいのりピンク", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OP-014_O.webp", how: "2026春頃～イベント配布" },
+  { id: "SP-009", name: "プリズムハートパープル", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-015_O.webp", how: "4/2～おねがいアイプリ ミラーパクトご購入キャンペーン" },
 
-  { id: "SP-010", name: "ほしのゆうびんやさんイエロー", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-3.jpg", how: "2026年5/9（土）アイプリ設置店で配布" },
+  { id: "SP-010", name: "すきのクリスタルいのりピンク", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OP-014_O.webp", how: "2026春頃～イベント配布" },
 
-  { id: "SP-011", name: "すきすきハートバズリウム", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-2.jpg", how: "2026年4/4（土）アイプリ設置店で配布" },
+  { id: "SP-011", name: "ほしのゆうびんやさんイエロー", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-3.jpg", how: "2026年5/9（土）アイプリ設置店で配布" },
+
+  { id: "SP-012", name: "すきすきハートバズリウム", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-2.jpg", how: "2026年4/4（土）アイプリ設置店で配布" },
 ];
