@@ -77,3 +77,26 @@ export function setupUI() {
     isTouching = false;
   });
 }
+import { toggleOwned } from './storage.js';
+import { render } from './render.js';
+
+// モーダル開く
+window.openModal = (card) => {
+  const modal = document.getElementById("modal");
+  modal.style.display = "flex";
+
+  document.getElementById("modalImg").src = card.img;
+  document.getElementById("modalText").textContent =
+    "入手方法：" + (card.how || "不明");
+
+  const btn = document.getElementById("modalBtn");
+  btn.onclick = () => {
+    toggleOwned(card.id);
+    render();
+  };
+};
+
+// モーダル閉じる
+window.closeModal = () => {
+  document.getElementById("modal").style.display = "none";
+};
