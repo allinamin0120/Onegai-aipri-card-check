@@ -76,3 +76,7 @@ export function loadFromURL() {
     console.log("URLデータ読み込み失敗");
   }
 }
+export function setOwned(id, value) {
+  owned[id] = value;
+  localStorage.setItem("owned", JSON.stringify(owned));
+}
