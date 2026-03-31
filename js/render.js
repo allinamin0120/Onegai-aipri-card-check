@@ -49,10 +49,14 @@ export function render() {
     const div = document.createElement("div");
     div.className = "card";
 
-    div.onclick = () => {
-      toggleOwned(card.id);
-      render();
-    };
+  div.onclick = () => {
+  if (card.series === "SP") {
+    openModal(card);
+  } else {
+    toggleOwned(card.id);
+    render();
+  }
+};
 
     if (owned[card.id]) {
       count++;
