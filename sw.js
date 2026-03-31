@@ -1,4 +1,4 @@
-const CACHE_NAME = "aipri-cache-v4";
+const CACHE_NAME = "aipri-cache-v5";
 const MAX_IMAGE_ITEMS = 50;
 
 // 事前キャッシュ（最低限）
