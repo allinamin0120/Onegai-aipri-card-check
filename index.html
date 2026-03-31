@@ -310,6 +310,13 @@ let owned = JSON.parse(localStorage.getItem("owned") || "{}");
 function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
+  const params = new URLSearchParams(location.search);
+const urlSeries = params.get("series");
+
+if (urlSeries) {
+  const select = document.getElementById("seriesFilter");
+  select.value = urlSeries;
+}
  const seriesLabel = {
     "1弾": "1だん",
     "SP": "スペシャル"
