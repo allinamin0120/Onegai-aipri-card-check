@@ -59,9 +59,9 @@ export function render() {
     if (onlyUnowned && ownedFlag) return;
     if (onlyOwned && !ownedFlag) return;
 
-    // レア度フィルター
+ // レア度フィルター
 if (rarityFilter !== "all") {
-  if (getRarityValue(card) != rarityFilter) return;
+  if (getRarityValue(card) !== Number(rarityFilter)) return;
 }
 
     total++;
