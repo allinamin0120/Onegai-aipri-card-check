@@ -123,12 +123,78 @@ select, input {
   }
 
 }
+   body {
+    margin: 0;
+  }
+
+  .card {
+    /* 既存スタイル */
+  }
+
+  /* 👇👇👇ここに追加する👇👇👇 */
+
+  /* ハンバーガー */
+  #menuButton {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    font-size: 26px;
+    z-index: 9999;
+    cursor: pointer;
+  }
+
+  /* メニュー */
+  #sideMenu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 260px;
+    height: 100%;
+    background: #fff;
+    transition: left 0.3s;
+  }
+
+  #sideMenu.open {
+    left: 0;
+  }
+
+  /* オーバーレイ */
+  #overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+  }
+
+  #overlay.open {
+    opacity: 1;
+  }
  
  
 </style>
 </head>
 
 <body>
+  <!-- ハンバーガーボタン -->
+<div id="menuButton" onclick="toggleMenu()">☰</div>
+
+<!-- オーバーレイ -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- サイドメニュー -->
+<div id="sideMenu">
+  <h2>メニュー</h2>
+
+  <button onclick="filterOwned(); closeMenu()">所持済み</button>
+  <button onclick="filterUnowned(); closeMenu()">未所持</button>
+  <button onclick="resetFilter(); closeMenu()">全表示</button>
+
+  <hr>
+
+  <button onclick="exportData(); closeMenu()">データ保存</button>
+  <button onclick="importData(); closeMenu()">データ読込</button>
+</div>
 
 <h1>おねがいアイプリカードコレクション</h1>
 <p>所持率: <span id="rate">0%</span></p>
