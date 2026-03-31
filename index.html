@@ -368,17 +368,17 @@ function exportData() {
     .map(card => card.id)
     .join(",");
 
-   if (!ownedIds) {
+  if (!ownedIds) {
     alert("まだカードが登録されてないよ！");
     return;
   }
 
   let encoded = btoa(ownedIds);
 
-  navigator.clipboard.writeText(encoded).then(() => {
-    alert("コピーしたよ！");
-  }).catch(() => {
-    prompt("コピーできなかったので手動でコピーしてね", encoded);
+  let url = location.origin + location.pathname + "?data=" + encoded;
+
+  navigator.clipboard.writeText(url).then(() => {
+    alert("URLコピーしたよ！");
   });
 }
 
