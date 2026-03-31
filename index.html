@@ -313,11 +313,6 @@ const urlSeries = params.get("series");
 
 const select = document.getElementById("seriesFilter");
 
-if (!select.dataset.loaded && urlSeries) {
-  select.value = urlSeries;
-  select.dataset.loaded = "true";
-}
-
 const seriesFilter = select.value;
 
 
