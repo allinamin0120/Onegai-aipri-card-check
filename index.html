@@ -163,6 +163,20 @@ select, input {
   pointer-events: auto;
   backdrop-filter: blur(6px); /* ←アプリ感UP */
 }
+  .series-stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.series-stat {
+  background: #222;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+}
 
 </style>
 </head>
@@ -188,6 +202,8 @@ select, input {
     <h1>おねがいアイプリカードコレクション</h1>
   </div>
 <p>所持率: <span id="rate">0%</span></p>
+
+<div id="seriesStats" class="series-stats"></div>
 
 <select id="seriesFilter" onchange="render()">
   <option value="all">ALL</option>
@@ -313,7 +329,42 @@ const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
 document.getElementById("rate").textContent = rate + "% (" + countAll + " / " + totalAll + ")";
 }
 
+// ===== 弾ごとの所持率 =====
+const seriesStats = {};
 
+cards.forEach(card => {
+  const s = card.series;
+
+  if (!seriesStats[s]) {
+    seriesStats[s] = { total: 0, owned: 0 };
+  }
+
+  seriesStats[s].total++;
+
+  if (owned[card.id]) {
+    seriesStats[s].owned++;
+  }
+});
+
+// 表示
+const container = document.getElementById("seriesStats");
+container.innerHTML = "";
+
+// 表示順（好きに増やしてOK）
+const order = ["1だん", "スペシャル"];
+
+order.forEach(series => {
+  if (!seriesStats[series]) return;
+
+  const { total, owned } = seriesStats[series];
+  const percent = total ? Math.round((owned / total) * 100) : 0;
+
+  const div = document.createElement("div");
+  div.className = "series-stat";
+  div.textContent = `${series}：${percent}%（${owned} / ${total}）`;
+
+  container.appendChild(div);
+});
   
 
 function toggle(id) {
