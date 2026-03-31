@@ -79,3 +79,4 @@ export const cards1 = [
   { id: "2-8", name: "チェックセットアップピンク", char: "あおい", rarity: 2, series: "1弾", img: "images/OA1-053_O.webp" },
 
   { id: "2-9", name: "ツートンジャケット", char: "ぐみ", rarity: 2, series: "1弾", img: "images/OA1-054_O.webp" },
+];
