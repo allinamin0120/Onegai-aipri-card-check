@@ -78,7 +78,6 @@ export function setupUI() {
   });
 }
 import { toggleOwned } from './storage.js';
-import { render } from './render.js';
 
 // モーダル開く
 window.openModal = (card) => {
