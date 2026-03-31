@@ -19,69 +19,28 @@
 
 <body>
 
-  <div id="overlay"></div>
+<div id="overlayArea"></div>
+<div id="menuArea"></div>
 
-<div id="sideMenu">
-  <h2>メニュー</h2>
-  
-  <div class="menu-row">
-  <button onclick="exportData(); closeMenu()">データ保存</button>
-  <button onclick="importData(); closeMenu()">データ読込</button>
-</div>
-
-<div class="menu-column">
-  <button onclick="location.href='/'">ALLカード</button>
-  <button onclick="location.href='?series=1弾'">おねがいアイプリ1だん</button>
-  <button onclick="location.href='?series=SP'">スペシャル</button>
-</div>
-</div>
-  
 <div id="app">
 
-  <div class="header">
-    <div id="menuButton" onclick="toggleMenu()">☰</div>
-    <h1>おねがいアイプリカードコレクション</h1>
-  </div>
-<p>所持率: <span id="rate">0%</span></p>
+  <div id="headerArea"></div>
 
-<div id="seriesStats" class="series-stats"></div>
+  <p>所持率: <span id="rate">0%</span></p>
 
+  <div id="seriesStats" class="series-stats"></div>
 
-<input type="text" id="search" placeholder="検索" oninput="render()">
+  <div id="filterArea"></div>
 
-<div class="checkbox-row">
-  <label>
-    <input type="checkbox" id="onlyUnowned" onchange="toggleFilter('unowned')">
-    未所持のみ
-  </label>
+  <div id="cardList"></div>
 
-  <label>
-    <input type="checkbox" id="onlyOwned" onchange="toggleFilter('owned')">
-    所持済みのみ
-  </label>
+  <div id="updateArea"></div>
+
 </div>
 
+<script type="module" src="js/main.js"></script>
 
-
-<div id="cardList"></div>
-
-<div id="updateBox" style="
-  display:none;
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#333;
-  color:#fff;
-  padding:10px 20px;
-  border-radius:10px;
-  z-index:9999;
-">
-  新しいバージョンがあります
-  <button onclick="updateApp()" style="margin-left:10px;">更新</button>
-</div>
-
-</div> 
+</body>
 
 <script type="module" src="js/main.js"></script>
 
