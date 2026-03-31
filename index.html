@@ -501,15 +501,7 @@ function importData() {
     console.log("URLデータ読み込み失敗");
   }
 })();
-
-
-if (urlSeries) {
-  const select = document.getElementById("seriesFilter");
-  select.value = urlSeries;
-
-　history.replaceState({}, "", location.pathname);
-}
-  
+ 
 render();
 
 let newWorker;
