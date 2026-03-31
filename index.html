@@ -560,10 +560,10 @@ document.addEventListener("touchend", () => {
   const diff = currentX - startX;
 
   // 左→右スワイプで開く
-  if (diff > 80) {
-    document.getElementById("sideMenu").classList.add("open");
-    document.getElementById("app").classList.add("shift");
-  }
+if (startX < 50 && diff > 80) {
+  document.getElementById("sideMenu").classList.add("open");
+  document.getElementById("app").classList.add("shift");
+}
 
   // 右→左スワイプで閉じる
   if (diff < -80) {
