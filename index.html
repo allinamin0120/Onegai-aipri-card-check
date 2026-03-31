@@ -537,7 +537,42 @@ function closeMenu() {
   document.getElementById("sideMenu").classList.remove("open");
   document.getElementById("app").classList.remove("shift");
 }
-  
+  // =======================
+// スワイプ操作（スマホ用）
+// =======================
+let startX = 0;
+let currentX = 0;
+let isTouching = false;
+
+document.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+  isTouching = true;
+});
+
+document.addEventListener("touchmove", (e) => {
+  if (!isTouching) return;
+  currentX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", () => {
+  if (!isTouching) return;
+
+  const diff = currentX - startX;
+
+  // 左→右スワイプで開く
+  if (diff > 80) {
+    document.getElementById("sideMenu").classList.add("open");
+    document.getElementById("app").classList.add("shift");
+  }
+
+  // 右→左スワイプで閉じる
+  if (diff < -80) {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("app").classList.remove("shift");
+  }
+
+  isTouching = false;
+});
   
 </script>
 
