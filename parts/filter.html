@@ -1,17 +1,38 @@
-<input type="text" id="search" placeholder="検索" oninput="render()">
+<!-- 検索 -->
+<input 
+  type="text" 
+  id="search" 
+  placeholder="検索" 
+  oninput="render()"
+>
 
+<!-- 所持フィルター -->
 <div class="checkbox-row">
   <label>
-    <input type="checkbox" id="onlyUnowned" onchange="toggleFilter('unowned')">
+    <input 
+      type="checkbox" 
+      id="onlyUnowned" 
+      onchange="toggleFilter('unowned')"
+    >
     未所持のみ
   </label>
 
   <label>
-    <input type="checkbox" id="onlyOwned" onchange="toggleFilter('owned')">
+    <input 
+      type="checkbox" 
+      id="onlyOwned" 
+      onchange="toggleFilter('owned')"
+    >
     所持済みのみ
   </label>
 </div>
-<select id="rarityFilter">
+
+<!-- レア度フィルター -->
+<select 
+  id="rarityFilter" 
+  onchange="render()" 
+  class="filter-select"
+>
   <option value="all">レア度：すべて</option>
   <option value="2">☆2</option>
   <option value="3">☆3</option>
