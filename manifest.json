@@ -1,6 +1,6 @@
 {
   "name": "アイプリカードコレクション",
-  "short_name": "アイプリBASE",
+  "short_name": "アイプリBase",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -15,6 +15,12 @@
       "src": "images/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
