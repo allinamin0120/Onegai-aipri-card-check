@@ -578,25 +578,28 @@ function updateApp() {
   newWorker.postMessage({ type: "SKIP_WAITING" });
   location.reload();
 }
-const menu = document.getElementById("sideMenu");
-const app = document.getElementById("app");
-const overlay = document.getElementById("overlay");
 
-function toggleMenu() {
-  const menu = document.getElementById("sideMenu");
-  const app = document.getElementById("app");
-
-  menu.classList.toggle("open");
-  app.classList.toggle("shift");
-  overlay.classList.toggle("active"); // ←追加
-}
 
 function closeMenu() {
   document.getElementById("sideMenu").classList.remove("open");
   document.getElementById("app").classList.remove("shift");
   overlay.classList.remove("active"); // ←追加
 }
+const menu = document.getElementById("sideMenu");
+const app = document.getElementById("app");
+const overlay = document.getElementById("overlay");
 
+function toggleMenu() {
+  menu.classList.toggle("open");
+  app.classList.toggle("shift");
+  overlay.classList.toggle("active");
+}
+
+function closeMenu() {
+  menu.classList.remove("open");
+  app.classList.remove("shift");
+  overlay.classList.remove("active");
+}
 // 背景クリックで閉じる
 overlay.addEventListener("click", closeMenu);
   
