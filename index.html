@@ -352,9 +352,9 @@ document.getElementById("rate").textContent = rate + "% (" + countAll + " / " + 
 
 
 // ===== 弾ごとの所持率 =====
-
 const seriesStats = {};
 
+cards.forEach(card => {
   const s = card.series;
 
   if (!seriesStats[s]) {
