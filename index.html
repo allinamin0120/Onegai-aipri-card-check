@@ -512,6 +512,20 @@ function importData() {
 
 render();
 
+  if (urlSeries) {
+  const select = document.getElementById("seriesFilter");
+
+  const exists = Array.from(select.options).some(
+    option => option.value === urlSeries
+  );
+
+  if (exists) {
+    select.value = urlSeries;
+  }
+}
+
+render();
+
 let newWorker;
 
 if ("serviceWorker" in navigator) {
