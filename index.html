@@ -306,45 +306,46 @@ const rarityFilter = "all";
 let totalAll = cards.length;
 let countAll = 0;
 
+let count = 0;
+let total = 0;
+
 cards.forEach(card => {
+  // 全体所持数
   if (owned[card.id]) countAll++;
+
+  // フィルター
+  if (seriesFilter !== "all" && card.series !== seriesFilter) return;
+  if (filter !== "all" && card.char !== filter) return;
+  if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
+
+  if (search) {
+    const name = card.name.toLowerCase().replace(/\s/g, "");
+    const char = card.char.toLowerCase();
+    if (!name.includes(search) && !char.includes(search)) return;
+  }
+
+  if (onlyUnowned && owned[card.id]) return;
+  if (onlyOwned && !owned[card.id]) return;
+
+  total++;
+
+  const div = document.createElement("div");
+  div.className = "card";
+
+  div.onclick = () => toggle(card.id);
+
+  if (owned[card.id]) {
+    count++;
+    div.classList.add("owned");
+  }
+
+  div.innerHTML =
+    (card.img ? '<img src="' + card.img + '">' : '') +
+    '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
+    '<div class="card-name">' + card.name + '</div>';
+
+  list.appendChild(div);
 });
-  let count = 0;
-  let total = 0;
-
-  
-  cards.forEach(card => {
-    if (seriesFilter !== "all" && card.series !== seriesFilter) return;
-    if (filter !== "all" && card.char !== filter) return;
-    if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
-    if (search) {
-  const name = card.name.toLowerCase().replace(/\s/g, "");
-  const char = card.char.toLowerCase();
-  if (!name.includes(search) && !char.includes(search)) return;
-}
-    if (onlyUnowned && owned[card.id]) return;
-    if (onlyOwned && !owned[card.id]) return;
-
-    total++;
-
-    const div = document.createElement("div");
-    div.className = "card";
-
-div.onclick = () => toggle(card.id);
-
-if (owned[card.id]) {
-  count++;
-  div.classList.add("owned");
-}
-
-div.innerHTML =
-  (card.img ? '<img src="' + card.img + '">' : '') +
-  '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
-  '<div class="card-name">' + card.name + '</div>';
-
-
-    list.appendChild(div);
-  });
 
 const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
 document.getElementById("rate").textContent = rate + "% (" + countAll + " / " + totalAll + ")";
