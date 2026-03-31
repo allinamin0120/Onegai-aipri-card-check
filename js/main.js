@@ -24,6 +24,7 @@ async function loadParts() {
   await load("overlayArea", "../parts/overlay.html");
   await load("filterArea", "../parts/filter.html");
   await load("updateArea", "../parts/update.html");
+  await load("modalArea", "../parts/modal.html");
 }
 
 
