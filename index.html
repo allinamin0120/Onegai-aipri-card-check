@@ -511,6 +511,8 @@ function importData() {
 if (urlSeries) {
   const select = document.getElementById("seriesFilter");
   select.value = urlSeries;
+
+　history.replaceState({}, "", location.pathname);
 }
   
 render();
