@@ -154,24 +154,13 @@ select, input {
     left: 0;
   }
 
-  /* オーバーレイ */
-  #overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  opacity: 0;
-  pointer-events: none; 
-  z-index: 9997;
+ #app {
+  transition: transform 0.3s ease;
 }
 
-#overlay.open {
-  opacity: 1;
-  pointer-events: auto; 
+#app.shift {
+  transform: translateX(260px);
 }
- 
  
 </style>
 </head>
@@ -179,17 +168,16 @@ select, input {
 <body>
 
 <div id="menuButton" onclick="toggleMenu()">☰</div>
-<div id="overlay" onclick="toggleMenu()"></div>
-
+  
 <div id="sideMenu">
   <h2>メニュー</h2>
   
   <button onclick="exportData(); closeMenu()">データ保存</button>
   <button onclick="importData(); closeMenu()">データ読込</button>
 </div>
-<div id="sideMenu">...</div>
 
-
+<div id="app">
+  
 <h1>おねがいアイプリカードコレクション</h1>
 <p>所持率: <span id="rate">0%</span></p>
 
@@ -533,17 +521,18 @@ function updateApp() {
   newWorker.postMessage({ type: "SKIP_WAITING" });
   location.reload();
 }
-  function toggleMenu() {
+function toggleMenu() {
   document.getElementById("sideMenu").classList.toggle("open");
-  document.getElementById("overlay").classList.toggle("open");
+  document.getElementById("app").classList.toggle("shift");
 }
 
 function closeMenu() {
   document.getElementById("sideMenu").classList.remove("open");
-  document.getElementById("overlay").classList.remove("open");
+  document.getElementById("app").classList.remove("shift");
 }
-  <div id="sideMenu">...</div>
-
+  
+</div>
+  
 </script>
 
 </body>
