@@ -1,7 +1,6 @@
 // main.js
 
-const MAINTENANCE = true; // trueでメンテ画面
-
+const MAINTENANCE = false; // trueでメンテ画面falseで開く
 // ===== パーツ読み込み =====
 async function loadParts() {
   const load = async (id, path) => {
