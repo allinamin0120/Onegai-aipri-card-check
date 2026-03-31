@@ -13,7 +13,7 @@ export const cardsSP = [
 
   { id: "SP-008", name: "プリズムハートパープル", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-015_O.webp", how: "" },
 
-  { id: "SP-009", name: "すきのクリスタルいのりピンク", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OP-014_O.webp", how: "イベント配布" },
+  { id: "SP-009", name: "すきのクリスタルいのりピンク", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OP-014_O.webp", how: "2026春頃～イベント配布" },
 
   { id: "SP-010", name: "ほしのゆうびんやさんイエロー", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-3.jpg", how: "2026年5/9（土）アイプリ設置店で配布" },
 
