@@ -293,6 +293,12 @@ function render() {
   const search = document.getElementById("search").value.toLowerCase().replace(/\s/g, "");
   const onlyUnowned = document.getElementById("onlyUnowned").checked;
 　const onlyOwned = document.getElementById("onlyOwned").checked;
+  let totalAll = cards.length;
+let countAll = 0;
+
+cards.forEach(card => {
+  if (owned[card.id]) countAll++;
+});
   let count = 0;
   let total = 0;
 
@@ -329,9 +335,9 @@ div.innerHTML =
     list.appendChild(div);
   });
 
-const rate = total ? Math.round((count / total) * 100) : 0;
-document.getElementById("rate").textContent = rate + "% (" + count + " / " + total + ")";
-  }
+const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
+document.getElementById("rate").textContent = rate + "% (" + countAll + " / " + totalAll + ")";
+
 
   
 
