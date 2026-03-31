@@ -4,6 +4,16 @@ import { cards1 } from '../data/series1.js';
 import { cardsSP } from '../data/seriesSP.js';
 import { getOwned, isOwned, setOwned } from './storage.js';
 
+function getRarityValue(card) {
+  const r = card.rarity;
+
+  if (r.includes("4")) return 4;
+  if (r.includes("3")) return 3;
+  if (r.includes("2")) return 2;
+
+  return 0;
+}
+
 export const cards = [...cards1, ...cardsSP];
 
 export function render() {
