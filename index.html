@@ -140,14 +140,15 @@ select, input {
 
   /* メニュー */
   #sideMenu {
-    position: fixed;
-    top: 0;
-    left: -280px;
-    width: 260px;
-    height: 100%;
-    background: #fff;
-    transition: left 0.3s;
-  }
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100%;
+  background: #fff;
+  transition: left 0.3s;
+  z-index: 9998; 
+}
 
   #sideMenu.open {
     left: 0;
