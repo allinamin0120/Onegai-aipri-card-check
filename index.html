@@ -178,6 +178,34 @@ select, input {
   font-size: 13px;
   border: 1px solid #ddd;
 }
+  /* 横並び */
+.menu-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* 縦並び */
+.menu-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ボタン共通 */
+#sideMenu button {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ホバー */
+#sideMenu button:hover {
+  background: #ddd;
+}
 
 </style>
 </head>
@@ -189,13 +217,16 @@ select, input {
 <div id="sideMenu">
   <h2>メニュー</h2>
   
+  <div class="menu-row">
   <button onclick="exportData(); closeMenu()">データ保存</button>
   <button onclick="importData(); closeMenu()">データ読込</button>
-  <button onclick="location.href='?series=1弾'">1弾</button>
-<button onclick="location.href='?series=SP'">SP</button>
-<button onclick="location.href='/'">全表示</button>
 </div>
 
+<div class="menu-column">
+  <button onclick="location.href='?series=1弾'">1だん</button>
+  <button onclick="location.href='?series=SP'">スペシャル</button>
+</div>
+  
 <div id="app">
 
   <div class="header">
