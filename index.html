@@ -276,7 +276,10 @@ let owned = JSON.parse(localStorage.getItem("owned") || "{}");
 function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
-
+ const seriesLabel = {
+    "1弾": "1だん",
+    "SP": "スペシャル"
+  };
   const seriesFilter = document.getElementById("seriesFilter").value;
   const filter = document.getElementById("filter").value;
   const rarityFilter = document.getElementById("rarityFilter").value;
@@ -327,9 +330,13 @@ div.innerHTML =
 
 const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
 document.getElementById("rate").textContent = rate + "% (" + countAll + " / " + totalAll + ")";
-}
 
 // ===== 弾ごとの所持率 =====
+const seriesLabel = {
+  "1弾": "1だん",
+  "SP": "スペシャル"
+};
+
 const seriesStats = {};
 
 cards.forEach(card => {
@@ -346,12 +353,10 @@ cards.forEach(card => {
   }
 });
 
-// 表示
 const container = document.getElementById("seriesStats");
 container.innerHTML = "";
 
-// 表示順（好きに増やしてOK）
-const order = ["1だん", "スペシャル"];
+const order = ["1弾", "SP"];
 
 order.forEach(series => {
   if (!seriesStats[series]) return;
@@ -359,13 +364,14 @@ order.forEach(series => {
   const { total, owned } = seriesStats[series];
   const percent = total ? Math.round((owned / total) * 100) : 0;
 
+  const label = seriesLabel[series] || series;
+
   const div = document.createElement("div");
   div.className = "series-stat";
-  div.textContent = `${series}：${percent}%（${owned} / ${total}）`;
+  div.textContent = `${label}：${percent}%（${owned} / ${total}）`;
 
   container.appendChild(div);
 });
-  
 
 function toggle(id) {
   owned[id] = !owned[id];
