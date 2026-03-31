@@ -8,7 +8,7 @@ export const cardsSP = [
   { id: "SP-004", name: "アイプリすきすきレッド", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OTOY-002_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
   { id: "SP-005", name: "アイプリゆめゆめブルー", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-003_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
 
-  { id: "SP-006", name: "おねがいアイプリセーブカード", char: "", rarity: "スペシャル", series: "SP", img: "images/OTOY-005_O.webp", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
+  { id: "SP-006", name: "おねがいアイプリセーブカード", char: "", rarity: "スペシャル", series: "SP", img: "images/main01_01.jpg", how: "2026年4/2発売おねがいアイプリデビューカードセット" },
 
   { id: "SP-007", name: "リボンアイドルパステル", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/OTOY-004_O.webp", how: "2026年4/2発売おねがいアイプリ ファイルバッグセット同封" },
   { id: "SP-008", name: "リボンアイドルパステル", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/OTOY-005_O.webp", how: "2026年4/2発売おねがいアイプリ ファイルバッグセット同封" },
