@@ -239,26 +239,6 @@ select, input {
 
 <div id="seriesStats" class="series-stats"></div>
 
-<select id="seriesFilter" onchange="render()">
-  <option value="all">ALL</option>
-  <option value="1弾">おねがいアイプリ1だん</option>
-  <option value="SP">SP</option>
-</select>
-
-<select id="filter" onchange="render()">
-  <option value="all">全員</option>
-  <option value="いのり">いのり</option>
-  <option value="あおい">あおい</option>
-  <option value="ぐみ">ぐみ</option>
-</select>
-
-<select id="rarityFilter" onchange="render()">
-  <option value="all">ALL</option>
-  <option value="4">★4</option>
-  <option value="3">★3</option>
-  <option value="2">★2</option>
-  <option value="スペシャル">スペシャル</option>
-</select>
 
 <input type="text" id="search" placeholder="検索" oninput="render()">
 
@@ -309,16 +289,15 @@ function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
 
-  const select = document.getElementById("seriesFilter");
-  const seriesFilter = select.value;
-
+const seriesFilter = "all";
+const filter = "all";
+const rarityFilter = "all";
 
  const seriesLabel = {
     "1弾": "1だん",
     "SP": "スペシャル"
   };
-  const filter = document.getElementById("filter").value;
-  const rarityFilter = document.getElementById("rarityFilter").value;
+ 
   const search = document.getElementById("search").value.toLowerCase().replace(/\s/g, "");
   const onlyUnowned = document.getElementById("onlyUnowned").checked;
   const onlyOwned = document.getElementById("onlyOwned").checked;
