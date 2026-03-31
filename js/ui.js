@@ -84,6 +84,12 @@ window.openModal = (card) => {
   const modal = document.getElementById("modal");
   modal.style.display = "flex";
 
+  modal.onclick = (e) => {
+    if (e.target.id === "modal") {
+      closeModal();
+    }
+  };
+  
   document.getElementById("modalImg").src = card.img;
   document.getElementById("modalText").textContent =
     "入手方法：" + (card.how || "不明");
