@@ -368,6 +368,11 @@ function exportData() {
     .map(card => card.id)
     .join(",");
 
+   if (!ownedIds) {
+    alert("まだカードが登録されてないよ！");
+    return;
+  }
+
   let encoded = btoa(ownedIds);
 
   navigator.clipboard.writeText(encoded).then(() => {
