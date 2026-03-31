@@ -503,17 +503,6 @@ function importData() {
 })();
 
 
-  if (urlSeries) {
-  const select = document.getElementById("seriesFilter");
-
-  const exists = Array.from(select.options).some(
-    option => option.value === urlSeries
-  );
-
-  if (exists) {
-    select.value = urlSeries;
-  }
-}
 if (urlSeries) {
   const select = document.getElementById("seriesFilter");
   select.value = urlSeries;
