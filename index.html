@@ -363,19 +363,15 @@ function toggle(id) {
 }
 
 function exportData() {
-  let bits = cards.map(card => owned[card.id] ? "1" : "0").join("");
+  let ownedIds = cards
+    .filter(card => owned[card.id])
+    .map(card => card.id)
+    .join(",");
 
-  let bytes = [];
-  for (let i = 0; i < bits.length; i += 8) {
-    let byte = bits.slice(i, i + 8).padEnd(8, "0");
-    bytes.push(parseInt(byte, 2));
-  }
-
-  let binary = String.fromCharCode(...bytes);
-  let encoded = btoa(binary);
+  let encoded = btoa(ownedIds);
 
   navigator.clipboard.writeText(encoded).then(() => {
-    alert("短縮コードコピーしたよ！");
+    alert("コピーしたよ！");
   }).catch(() => {
     prompt("コピーできなかったので手動でコピーしてね", encoded);
   });
@@ -386,13 +382,22 @@ function importData() {
   if (!data) return;
 
   try {
-    let binary = atob(data);
-    let bits = "";
+    let decoded = atob(data);
+    let ids = decoded ? decoded.split(",") : [];
 
-    for (let i = 0; i < binary.length; i++) {
-      bits += binary.charCodeAt(i).toString(2).padStart(8, "0");
-    }
+    let newOwned = {};
+    ids.forEach(id => {
+      newOwned[id] = true;
+    });
 
+    localStorage.setItem("owned", JSON.stringify(newOwned));
+    alert("復元したよ！");
+    location.reload();
+
+  } catch (e) {
+    alert("コードが間違ってる！");
+  }
+}
     let newOwned = {};
     cards.forEach((card, index) => {
       if (bits[index] === "1") {
