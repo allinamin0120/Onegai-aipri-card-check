@@ -253,11 +253,82 @@ import { cardsSP } from './data/seriesSP.js';
 const params = new URLSearchParams(location.search);
 const urlSeries = params.get("series");
 
-// データ合体
 const cards = [...cards1, ...cardsSP];
+  
+let owned = JSON.parse(localStorage.getItem("owned") || "{}");
+
+function render() {
+  const list = document.getElementById("cardList");
+  list.innerHTML = "";
+
+  const seriesFilter = document.getElementById("seriesFilter").value;
+  const filter = document.getElementById("filter").value;
+  const rarityFilter = document.getElementById("rarityFilter").value;
+  const search = document.getElementById("search").value.toLowerCase().replace(/\s/g, "");
+  const onlyUnowned = document.getElementById("onlyUnowned").checked;
+  const onlyOwned = document.getElementById("onlyOwned").checked;
+
+  let totalAll = cards.length;
+  let countAll = 0;
+
+  cards.forEach(card => {
+    if (owned[card.id]) countAll++;
+  });
+
+  let count = 0;
+  let total = 0;
+
+  cards.forEach(card => {
+    if (seriesFilter !== "all" && card.series !== seriesFilter) return;
+    if (filter !== "all" && card.char !== filter) return;
+    if (rarityFilter !== "all" && card.rarity != rarityFilter) return;
+
+    if (search) {
+      const name = card.name.toLowerCase().replace(/\s/g, "");
+      const char = card.char.toLowerCase();
+      if (!name.includes(search) && !char.includes(search)) return;
+    }
+
+    if (onlyUnowned && owned[card.id]) return;
+    if (onlyOwned && !owned[card.id]) return;
+
+    total++;
+
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.onclick = () => toggle(card.id);
+
+    if (owned[card.id]) {
+      count++;
+      div.classList.add("owned");
+    }
+
+    div.innerHTML =
+      (card.img ? '<img src="' + card.img + '">' : '') +
+      '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
+      '<div class="card-name">' + card.name + '</div>';
+
+    list.appendChild(div);
+  });
+
+  const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
+  document.getElementById("rate").textContent = rate + "% (" + countAll + " / " + totalAll + ")";
+}
+
+function toggle(id) {
+  owned[id] = !owned[id];
+  localStorage.setItem("owned", JSON.stringify(owned));
+  render();
+}
 
 
+  
+render();
 </script>
+
+
+
 
 let owned = JSON.parse(localStorage.getItem("owned") || "{}");
 
