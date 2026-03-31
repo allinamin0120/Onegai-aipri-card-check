@@ -313,10 +313,7 @@ function render() {
   const params = new URLSearchParams(location.search);
 const urlSeries = params.get("series");
 
-if (urlSeries) {
-  const select = document.getElementById("seriesFilter");
-  select.value = urlSeries;
-}
+
  const seriesLabel = {
     "1弾": "1だん",
     "SP": "スペシャル"
@@ -511,7 +508,11 @@ function importData() {
     select.value = urlSeries;
   }
 }
-
+if (urlSeries) {
+  const select = document.getElementById("seriesFilter");
+  select.value = urlSeries;
+}
+  
 render();
 
 let newWorker;
