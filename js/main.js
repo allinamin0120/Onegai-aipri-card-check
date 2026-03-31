@@ -1,6 +1,12 @@
 // main.js
 
 const MAINTENANCE = false; // trueでメンテ画面falseで開く
+
+function isAdmin() {
+  const params = new URLSearchParams(location.search);
+  return params.get("admin") === "0120";
+}
+
 // ===== パーツ読み込み =====
 async function loadParts() {
   const load = async (id, path) => {
@@ -30,7 +36,7 @@ import { loadFromURL } from './storage.js';
 // ===== 初期処理 =====
 async function init() {
 
-  if (MAINTENANCE) {
+ if (MAINTENANCE && !isAdmin()) {
     document.body.innerHTML = `
       <div style="
         display:flex;
