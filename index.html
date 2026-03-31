@@ -578,28 +578,42 @@ function updateApp() {
   newWorker.postMessage({ type: "SKIP_WAITING" });
   location.reload();
 }
+const overlay = document.getElementById("overlay");
+
 function toggleMenu() {
-  document.getElementById("sideMenu").classList.toggle("open");
-  document.getElementById("app").classList.toggle("shift");
+  const menu = document.getElementById("sideMenu");
+  const app = document.getElementById("app");
+
+  menu.classList.toggle("open");
+  app.classList.toggle("shift");
+  overlay.classList.toggle("active"); // ←追加
 }
 
 function closeMenu() {
   document.getElementById("sideMenu").classList.remove("open");
   document.getElementById("app").classList.remove("shift");
+  overlay.classList.remove("active"); // ←追加
 }
+
+// 背景クリックで閉じる
+overlay.addEventListener("click", closeMenu);
 // =======================
-// スワイプ操作
+// スワイプ操作（overlay対応版）
 // =======================
 let startX = 0;
 let currentX = 0;
 let isTouching = false;
 
+const menu = document.getElementById("sideMenu");
+const app = document.getElementById("app");
+const overlay = document.getElementById("overlay");
+
 document.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
 
-  const isOpen = document.getElementById("sideMenu").classList.contains("open");
+  const isOpen = menu.classList.contains("open");
 
-  // 👇 左端 or メニュー開いてる時はどこでもOK
+  // 左端 or メニュー開いてる時
   if (startX < 50 || isOpen) {
     isTouching = true;
   }
@@ -615,16 +629,18 @@ document.addEventListener("touchend", () => {
 
   const diff = currentX - startX;
 
-  // 👇 開く（左 → 右）
+  // 👉 開く（左 → 右）
   if (diff > 80) {
-    document.getElementById("sideMenu").classList.add("open");
-    document.getElementById("app").classList.add("shift");
+    menu.classList.add("open");
+    app.classList.add("shift");
+    overlay.classList.add("active"); // ←追加
   }
 
-  // 👇 閉じる（右 → 左）
+  // 👉 閉じる（右 → 左）
   if (diff < -80) {
-    document.getElementById("sideMenu").classList.remove("open");
-    document.getElementById("app").classList.remove("shift");
+    menu.classList.remove("open");
+    app.classList.remove("shift");
+    overlay.classList.remove("active"); // ←追加
   }
 
   isTouching = false;
