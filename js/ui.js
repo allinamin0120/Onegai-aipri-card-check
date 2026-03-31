@@ -77,29 +77,56 @@ export function setupUI() {
     isTouching = false;
   });
 }
-import { toggleOwned } from './storage.js';
+
 
 // モーダル開く
+import { setOwned } from './storage.js';
+import { render } from './render.js';
+
 window.openModal = (card) => {
   const modal = document.getElementById("modal");
   modal.style.display = "flex";
 
+  // 外クリックで閉じる
   modal.onclick = (e) => {
     if (e.target.id === "modal") {
       closeModal();
     }
   };
-  
+
   document.getElementById("modalImg").src = card.img;
   document.getElementById("modalText").textContent =
     "入手方法：" + (card.how || "不明");
 
+  const owned = JSON.parse(localStorage.getItem("owned") || "{}");
+
   const btn = document.getElementById("modalBtn");
+  const removeBtn = document.getElementById("modalRemoveBtn");
+
+  // 状態でボタン切り替え
+  if (owned[card.id]) {
+    btn.style.display = "none";
+    removeBtn.style.display = "inline-block";
+  } else {
+    btn.style.display = "inline-block";
+    removeBtn.style.display = "none";
+  }
+
+  // 所持
   btn.onclick = () => {
-    toggleOwned(card.id);
+    setOwned(card.id, true);
     render();
+    closeModal();
+  };
+
+  // 未所持
+  removeBtn.onclick = () => {
+    setOwned(card.id, false);
+    render();
+    closeModal();
   };
 };
+
 
 // モーダル閉じる
 window.closeModal = () => {
