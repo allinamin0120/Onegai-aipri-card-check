@@ -1,4 +1,5 @@
-  /* 共通（PC） */
+/* ===== 共通 ===== */
+
 body {
   font-family: sans-serif;
   background: #f5f5f5;
@@ -53,37 +54,6 @@ body {
 select, input {
   margin: 5px 5px 10px 0;
   padding: 5px;
-}
-
-/* ホバー（PCのみ） */
-@media (hover: hover) {
-  .card:hover {
-    transform: scale(1.1);
-    z-index: 10;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    cursor: pointer;
-  }
-
-  .card:hover img {
-    transform: scale(1.05);
-  }
-}
-
-/* スマホ */
-@media (max-width: 600px) {
-  body {
-    padding: 8px;
-  }
-
-  #cardList {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .card {
-    width: 100%;
-    margin: 0;
-  }
 }
 
 /* メニュー */
@@ -147,9 +117,11 @@ select, input {
 #overlay.active {
   opacity: 1;
   pointer-events: auto;
-  backdrop-filter: blur(6px); /* ←アプリ感UP */
+  backdrop-filter: blur(6px);
 }
-  .series-stats {
+
+/* 弾ステータス */
+.series-stats {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -164,21 +136,20 @@ select, input {
   font-size: 13px;
   border: 1px solid #ddd;
 }
-  /* 横並び */
+
+/* メニューUI */
 .menu-row {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
 }
 
-/* 縦並び */
 .menu-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* ボタン共通 */
 #sideMenu button {
   padding: 8px;
   border-radius: 8px;
@@ -188,9 +159,6 @@ select, input {
   font-size: 14px;
 }
 
-/* ホバー */
 #sideMenu button:hover {
   background: #ddd;
 }
-
-
