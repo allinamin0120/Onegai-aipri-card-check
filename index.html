@@ -308,10 +308,9 @@ let owned = JSON.parse(localStorage.getItem("owned") || "{}");
 function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
- 
-const select = document.getElementById("seriesFilter");
 
-const seriesFilter = select.value;
+  const select = document.getElementById("seriesFilter");
+  const seriesFilter = select.value;
 
 
  const seriesLabel = {
