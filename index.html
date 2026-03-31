@@ -403,22 +403,6 @@ function importData() {
     alert("コードが間違ってる！");
   }
 }
-  
-    let newOwned = {};
-    cards.forEach((card, index) => {
-      if (bits[index] === "1") {
-        newOwned[card.id] = true;
-      }
-    });
-
-    localStorage.setItem("owned", JSON.stringify(newOwned));
-    alert("復元したよ！");
-    location.reload();
-
-  } catch (e) {
-    alert("コードが間違ってる！");
-  }
-}
 render();
 
 </script>
