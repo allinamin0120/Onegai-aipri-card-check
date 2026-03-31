@@ -551,8 +551,10 @@ let isTouching = false;
 document.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
 
-  // 左端だけ反応させる
-  if (startX < 50) {
+  const isOpen = document.getElementById("sideMenu").classList.contains("open");
+
+  // 👇 左端 or メニュー開いてる時はどこでもOK
+  if (startX < 50 || isOpen) {
     isTouching = true;
   }
 });
@@ -567,13 +569,13 @@ document.addEventListener("touchend", () => {
 
   const diff = currentX - startX;
 
-  // 開く
+  // 👇 開く（左 → 右）
   if (diff > 80) {
     document.getElementById("sideMenu").classList.add("open");
     document.getElementById("app").classList.add("shift");
   }
 
-  // 閉じる
+  // 👇 閉じる（右 → 左）
   if (diff < -80) {
     document.getElementById("sideMenu").classList.remove("open");
     document.getElementById("app").classList.remove("shift");
