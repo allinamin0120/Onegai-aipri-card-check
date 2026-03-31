@@ -362,13 +362,22 @@ function toggle(id) {
   render();
 }
 
-  function exportData() {
-  const data = JSON.stringify(owned);
+function exportData() {
+  let bits = cards.map(card => owned[card.id] ? "1" : "0").join("");
 
-  navigator.clipboard.writeText(data).then(() => {
-    alert("コピーしたよ！");
+  let bytes = [];
+  for (let i = 0; i < bits.length; i += 8) {
+    let byte = bits.slice(i, i + 8).padEnd(8, "0");
+    bytes.push(parseInt(byte, 2));
+  }
+
+  let binary = String.fromCharCode(...bytes);
+  let encoded = btoa(binary);
+
+  navigator.clipboard.writeText(encoded).then(() => {
+    alert("短縮コードコピーしたよ！");
   }).catch(() => {
-    prompt("コピーできなかったので手動でコピーしてね", data);
+    prompt("コピーできなかったので手動でコピーしてね", encoded);
   });
 }
 
@@ -377,10 +386,24 @@ function importData() {
   if (!data) return;
 
   try {
-    const parsed = JSON.parse(data);
-    localStorage.setItem("owned", JSON.stringify(parsed));
+    let binary = atob(data);
+    let bits = "";
+
+    for (let i = 0; i < binary.length; i++) {
+      bits += binary.charCodeAt(i).toString(2).padStart(8, "0");
+    }
+
+    let newOwned = {};
+    cards.forEach((card, index) => {
+      if (bits[index] === "1") {
+        newOwned[card.id] = true;
+      }
+    });
+
+    localStorage.setItem("owned", JSON.stringify(newOwned));
     alert("復元したよ！");
     location.reload();
+
   } catch (e) {
     alert("コードが間違ってる！");
   }
