@@ -30,7 +30,25 @@ import { loadFromURL } from './storage.js';
 
 // ===== 初期処理 =====
 async function init() {
-  await loadParts();   //
+
+  if (MAINTENANCE) {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        height:100vh;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        font-family:sans-serif;
+      ">
+        <h1>メンテナンス中</h1>
+        <p>しばらくお待ちください</p>
+      </div>
+    `;
+    return;
+  }
+
+  await loadParts();
   loadFromURL();
   render();
   setupUI();
