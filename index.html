@@ -52,12 +52,6 @@ select, input {
   margin: 5px 5px 10px 0;
   padding: 5px;
 }
-  /* ホバーで浮く */
-.card:hover {
-  transform: scale(1.08);
-  cursor: pointer;
-  transition: 0.2s;
-}
 
 /* 所持済みを光らせる */
 .card.owned {
@@ -93,13 +87,7 @@ select, input {
     z-index: 10;
   }
 }
-  @media (hover: hover) {
-  .card:hover {
-    transform: scale(1.15);
-    z-index: 10;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  }
-}
+
 @media (max-width: 600px) {
 
   #cardList {
@@ -142,12 +130,6 @@ select, input {
 
 #app.shift {
   transform: translateX(260px);
-}
-
-#menuButton {
-  position: static; 
-  font-size: 24px;
-  cursor: pointer;
 }
 .checkbox-row {
   display: flex;
@@ -196,6 +178,13 @@ select, input {
 @media (max-width: 600px) {
   body {
     padding: 8px;
+  }
+}
+  @media (hover: hover) {
+  .card:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   }
 }
 </style>
