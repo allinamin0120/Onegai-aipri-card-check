@@ -182,6 +182,9 @@ select, input {
   
   <button onclick="exportData(); closeMenu()">データ保存</button>
   <button onclick="importData(); closeMenu()">データ読込</button>
+  <button onclick="location.href='?series=1弾'">1弾</button>
+<button onclick="location.href='?series=SP'">SP</button>
+<button onclick="location.href='/'">全表示</button>
 </div>
 
 <div id="app">
@@ -250,6 +253,8 @@ select, input {
 </div> 
 
 <script>
+  const params = new URLSearchParams(location.search);
+const urlSeries = params.get("series");
 
 
 const cards = [
@@ -432,6 +437,9 @@ function toggle(id) {
   if (type === "owned" && owned.checked) {
     unowned.checked = false;
   }
+    if (urlSeries) {
+  document.getElementById("seriesFilter").value = urlSeries;
+}
 
   render();
 }
