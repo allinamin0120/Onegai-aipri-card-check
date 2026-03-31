@@ -336,7 +336,20 @@ function toggle(id) {
   localStorage.setItem("owned", JSON.stringify(owned));
   render();
 }
-  function toggleFilter(type) { ... }
+  function toggleFilter(type) {
+  const unowned = document.getElementById("onlyUnowned");
+  const owned = document.getElementById("onlyOwned");
+
+  if (type === "unowned" && unowned.checked) {
+    owned.checked = false;
+  }
+
+  if (type === "owned" && owned.checked) {
+    unowned.checked = false;
+  }
+
+  render();
+}
 
   function exportData() {
   const data = JSON.stringify(owned);
