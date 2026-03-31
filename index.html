@@ -383,10 +383,15 @@ function exportData() {
 }
 
 function importData() {
-  const data = prompt("復元コードを貼ってね");
+  let data = prompt("復元コードまたはURLを貼ってね");
   if (!data) return;
 
   try {
+    // 🔥 URL対応
+    if (data.includes("data=")) {
+      data = data.split("data=")[1];
+    }
+
     let decoded = atob(data);
     let ids = decoded ? decoded.split(",") : [];
 
