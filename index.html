@@ -196,7 +196,6 @@ select, input {
 <script>
 
 
-<script>
 const cards = [
   // ★4
   { id: "4-1", name: "すきすきハートバズリウム", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-001_O.webp" },
@@ -449,10 +448,34 @@ function importData() {
 })();
 
 render();
-  if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
+
+let newWorker;
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").then((reg) => {
+
+    reg.onupdatefound = () => {
+      newWorker = reg.installing;
+
+      newWorker.onstatechange = () => {
+        if (newWorker.state === "installed") {
+          if (navigator.serviceWorker.controller) {
+            document.getElementById("updateBox").style.display = "block";
+          }
+        }
+      };
+    };
+
+  });
 }
 
+
+function updateApp() {
+  if (!newWorker) return;
+
+  newWorker.postMessage({ type: "SKIP_WAITING" });
+  location.reload();
+}
 </script>
 
 </body>
