@@ -578,6 +578,8 @@ function updateApp() {
   newWorker.postMessage({ type: "SKIP_WAITING" });
   location.reload();
 }
+const menu = document.getElementById("sideMenu");
+const app = document.getElementById("app");
 const overlay = document.getElementById("overlay");
 
 function toggleMenu() {
@@ -597,6 +599,7 @@ function closeMenu() {
 
 // 背景クリックで閉じる
 overlay.addEventListener("click", closeMenu);
+  
 // =======================
 // スワイプ操作（overlay対応版）
 // =======================
@@ -604,16 +607,11 @@ let startX = 0;
 let currentX = 0;
 let isTouching = false;
 
-const menu = document.getElementById("sideMenu");
-const app = document.getElementById("app");
-const overlay = document.getElementById("overlay");
-
 document.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
 
   const isOpen = menu.classList.contains("open");
 
-  // 左端 or メニュー開いてる時
   if (startX < 50 || isOpen) {
     isTouching = true;
   }
@@ -629,18 +627,18 @@ document.addEventListener("touchend", () => {
 
   const diff = currentX - startX;
 
-  // 👉 開く（左 → 右）
+  // 開く
   if (diff > 80) {
     menu.classList.add("open");
     app.classList.add("shift");
-    overlay.classList.add("active"); // ←追加
+    overlay.classList.add("active");
   }
 
-  // 👉 閉じる（右 → 左）
+  // 閉じる
   if (diff < -80) {
     menu.classList.remove("open");
     app.classList.remove("shift");
-    overlay.classList.remove("active"); // ←追加
+    overlay.classList.remove("active");
   }
 
   isTouching = false;
