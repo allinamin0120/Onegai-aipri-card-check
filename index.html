@@ -300,8 +300,6 @@ select, input {
 import { cards1 } from './data/series1.js';
 import { cardsSP } from './data/seriesSP.js';
 
-const params = new URLSearchParams(location.search);
-const urlSeries = params.get("series");
 
 const cards = [...cards1, ...cardsSP];
 
@@ -311,7 +309,7 @@ function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
   const params = new URLSearchParams(location.search);
-const urlSeries = params.get("series");
+　const urlSeries = params.get("series");
 
 
  const seriesLabel = {
