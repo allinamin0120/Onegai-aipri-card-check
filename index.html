@@ -177,7 +177,8 @@ select, input {
 </head>
 
 <body>
-  <div id="menuButton" onclick="toggleMenu()">☰</div>
+
+<div id="menuButton" onclick="toggleMenu()">☰</div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
 <div id="sideMenu">
@@ -186,8 +187,12 @@ select, input {
   <button onclick="filterOwned(); closeMenu()">所持済み</button>
   <button onclick="filterUnowned(); closeMenu()">未所持</button>
   <button onclick="resetFilter(); closeMenu()">全表示</button>
-</div>
 
+  <hr>
+
+  <button onclick="exportData(); closeMenu()">データ保存</button>
+  <button onclick="importData(); closeMenu()">データ読込</button>
+</div>
 
 
 <h1>おねがいアイプリカードコレクション</h1>
