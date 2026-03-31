@@ -12,12 +12,6 @@
 <title>おねがいアイプリカードコレクション</title>
 
 <style>
-body {
-  font-family: sans-serif;
-  background: #f5f5f5;
-  padding: 10px;
-}
-
 /* 共通（PC） */
 #cardList {
   display: grid;
@@ -108,10 +102,6 @@ select, input {
 }
 @media (max-width: 600px) {
 
-  body {
-    padding: 8px;
-  }
-
   #cardList {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
@@ -195,6 +185,18 @@ select, input {
 #overlay.active {
   opacity: 1;
   pointer-events: auto;
+}
+  body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+  }
 }
 </style>
 </head>
@@ -580,11 +582,7 @@ function updateApp() {
 }
 
 
-function closeMenu() {
-  document.getElementById("sideMenu").classList.remove("open");
-  document.getElementById("app").classList.remove("shift");
-  overlay.classList.remove("active"); // ←追加
-}
+
 const menu = document.getElementById("sideMenu");
 const app = document.getElementById("app");
 const overlay = document.getElementById("overlay");
@@ -601,7 +599,7 @@ function closeMenu() {
   overlay.classList.remove("active");
 }
 
-// 背景クリックで閉じる
+// 背景クリックで閉じる（1回だけ！）
 overlay.addEventListener("click", closeMenu);
   
 // =======================
