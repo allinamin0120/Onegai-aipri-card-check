@@ -81,7 +81,6 @@ export function setupUI() {
 
 // モーダル開く
 import { setOwned } from './storage.js';
-import { render } from './render.js';
 
 window.openModal = (card) => {
   const modal = document.getElementById("modal");
