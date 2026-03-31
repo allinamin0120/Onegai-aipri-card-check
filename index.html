@@ -412,6 +412,16 @@ order.forEach(series => {
 function toggle(id) {
   owned[id] = !owned[id];
   localStorage.setItem("owned", JSON.stringify(owned));
+
+  const params = new URLSearchParams(location.search);
+const urlSeries = params.get("series");
+
+if (urlSeries) {
+  const select = document.getElementById("seriesFilter");
+  select.value = urlSeries;
+}
+
+render();
   render();
 }
 
