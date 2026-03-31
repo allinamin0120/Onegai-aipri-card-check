@@ -33,6 +33,7 @@ export function render() {
   const search = document.getElementById("search").value.toLowerCase().replace(/\s/g, "");
   const onlyUnowned = document.getElementById("onlyUnowned").checked;
   const onlyOwned = document.getElementById("onlyOwned").checked;
+  const rarityFilter = document.getElementById("rarityFilter").value;
 
   let totalAll = cards.length;
   let countAll = 0;
@@ -57,6 +58,11 @@ export function render() {
 
     if (onlyUnowned && ownedFlag) return;
     if (onlyOwned && !ownedFlag) return;
+
+    // レア度フィルター
+if (rarityFilter !== "all") {
+  if (getRarityValue(card) != rarityFilter) return;
+}
 
     total++;
 
