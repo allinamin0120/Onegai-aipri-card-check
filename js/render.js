@@ -2,7 +2,7 @@
 
 import { cards1 } from '../data/series1.js';
 import { cardsSP } from '../data/seriesSP.js';
-import { getOwned, toggleOwned } from './storage.js';
+import { getOwned, isOwned, setOwned } from './storage.js';
 
 export const cards = [...cards1, ...cardsSP];
 
@@ -31,8 +31,12 @@ export function render() {
   let total = 0;
 
   cards.forEach(card => {
-    if (owned[card.id]) countAll++;
+    const ownedFlag = !!owned[card.id];
 
+    // 全体所持数カウント
+    if (ownedFlag) countAll++;
+
+    // フィルター
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
 
     if (search) {
@@ -41,24 +45,26 @@ export function render() {
       if (!name.includes(search) && !char.includes(search)) return;
     }
 
-    if (onlyUnowned && owned[card.id]) return;
-    if (onlyOwned && !owned[card.id]) return;
+    if (onlyUnowned && ownedFlag) return;
+    if (onlyOwned && !ownedFlag) return;
 
     total++;
 
     const div = document.createElement("div");
     div.className = "card";
 
-  div.onclick = () => {
-  if (card.series === "SP") {
-    openModal(card);
-  } else {
-    toggleOwned(card.id);
-    render();
-  }
-};
+    // 👇 クリック処理（toggle完全排除）
+    div.onclick = () => {
+      if (card.series === "SP") {
+        openModal(card);
+      } else {
+        setOwned(card.id, !isOwned(card.id));
+        render();
+      }
+    };
 
-    if (owned[card.id]) {
+    // 所持状態UI
+    if (ownedFlag) {
       count++;
       div.classList.add("owned");
     }
@@ -71,11 +77,12 @@ export function render() {
     list.appendChild(div);
   });
 
+  // 全体所持率
   const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
   document.getElementById("rate").textContent =
-    rate + "% (" + countAll + " / " + totalAll + ")";
+    `${rate}% (${countAll} / ${totalAll})`;
 
-  // 弾ごとの所持率
+  // ===== 弾ごとの所持率 =====
   const seriesStats = {};
 
   cards.forEach(card => {
