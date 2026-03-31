@@ -308,10 +308,10 @@ let owned = JSON.parse(localStorage.getItem("owned") || "{}");
 function render() {
   const list = document.getElementById("cardList");
   list.innerHTML = "";
-  const params = new URLSearchParams(location.search);
-　const urlSeries = params.get("series");
- 
-  const select = document.getElementById("seriesFilter");
+ const params = new URLSearchParams(location.search);
+const urlSeries = params.get("series");
+
+const select = document.getElementById("seriesFilter");
 
 if (!select.dataset.loaded && urlSeries) {
   select.value = urlSeries;
