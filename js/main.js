@@ -1,6 +1,6 @@
 // main.js
 
-const MAINTENANCE = true; // trueでメンテ画面falseで開く
+const MAINTENANCE = false; // trueでメンテ画面falseで開く
 
 function isAdmin() {
   const params = new URLSearchParams(location.search);
