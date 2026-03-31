@@ -18,3 +18,4 @@ export const cardsSP = [
 { id: "SP-010", name: "ほしのゆうびんやさんイエロー", char: "あおい", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-3.jpg" },
 
 { id: "SP-011", name: "すきすきハートバズリウム", char: "いのり", rarity: "スペシャル", series: "SP", img: "images/img_e2603191-2.jpg" },
+];
