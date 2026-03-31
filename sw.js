@@ -1,7 +1,7 @@
 const CACHE_NAME = "aipri-cache-v4";
 const MAX_IMAGE_ITEMS = 50;
 
-// 🔥 事前キャッシュ（最低限）
+// 事前キャッシュ（最低限）
 const CORE_ASSETS = [
   "/",
   "/index.html",
@@ -44,13 +44,13 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const url = event.request.url;
 
-  // 🔥 画像だけ特別処理
+  // 画像だけ特別処理
   if (url.includes("/images/")) {
     event.respondWith(handleImageRequest(event.request));
     return;
   }
 
-  // 🔥 それ以外（HTML / JS / CSS）
+  // それ以外（HTML / JS / CSS）
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
@@ -59,7 +59,7 @@ self.addEventListener("fetch", (event) => {
 });
 
 // =======================
-// 🖼 画像専用キャッシュ制御
+// 画像専用キャッシュ制御
 // =======================
 async function handleImageRequest(request) {
   const cache = await caches.open(CACHE_NAME);
@@ -84,3 +84,9 @@ async function handleImageRequest(request) {
 
   return response;
 }
+// 更新ボタン対応（これ追加）
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
