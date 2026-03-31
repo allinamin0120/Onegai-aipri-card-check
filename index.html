@@ -155,13 +155,14 @@ select, input {
 
 <input type="text" id="search" placeholder="検索" oninput="render()">
 
-  <label style="display:block; margin-bottom:10px;">
-  <input type="checkbox" id="onlyUnowned" onchange="render()">
+<label style="display:block; margin-bottom:10px;">
+  <input type="checkbox" id="onlyUnowned" onchange="toggleFilter('unowned')">
   未所持のみ
-    <label style="display:block; margin-bottom:10px;">
-  <input type="checkbox" id="onlyOwned" onchange="render()">
-  所持済みのみ
 </label>
+
+<label style="display:block; margin-bottom:10px;">
+  <input type="checkbox" id="onlyOwned" onchange="toggleFilter('owned')">
+  所持済みのみ
 </label>
 
   <div style="margin:10px 0;">
@@ -335,6 +336,7 @@ function toggle(id) {
   localStorage.setItem("owned", JSON.stringify(owned));
   render();
 }
+  function toggleFilter(type) { ... }
 
   function exportData() {
   const data = JSON.stringify(owned);
