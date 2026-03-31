@@ -1,7 +1,7 @@
 export const cards1 = [
    // ★4
-  { id: "4-1", name: "すきすきハートバズリウム", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-001_O.webp" },
-  { id: "4-2", name: "すきすきハートバズリウム", char: "いのり", rarity: 4, series: "1弾", img: "images/OA1-002_O.webp" },
+  { id: "4-1", name: "すきすきハートバズリウム", char: "いのり", rarity: 4, series: "1弾", img: "/images/OA1-001_O.webp" },
+  { id: "4-2", name: "すきすきハートバズリウム", char: "いのり", rarity: 4, series: "1弾", img: "/images/OA1-002_O.webp" },
 
   { id: "4-3", name: "ゆめゆめスターバズリウム", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-003_O.webp" },
   { id: "4-4", name: "ゆめゆめスターバズリウム", char: "あおい", rarity: 4, series: "1弾", img: "images/OA1-004_O.webp" },
