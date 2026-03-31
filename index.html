@@ -541,6 +541,15 @@ function updateApp() {
   newWorker.postMessage({ type: "SKIP_WAITING" });
   location.reload();
 }
+  function toggleMenu() {
+  document.getElementById("sideMenu").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("open");
+}
+
+function closeMenu() {
+  document.getElementById("sideMenu").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
+}
 </script>
 
 </body>
