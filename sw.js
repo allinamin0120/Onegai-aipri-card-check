@@ -1,4 +1,4 @@
-const CACHE_NAME = "aipri-cache-v5";
+const CACHE_NAME = "aipri-cache-v6"; // ←バージョン上げた
 const MAX_IMAGE_ITEMS = 50;
 
 // 事前キャッシュ（最低限）
@@ -39,7 +39,7 @@ self.addEventListener("activate", (event) => {
 });
 
 // =======================
-// フェッチ処理
+// フェッチ処理（ここが重要修正）
 // =======================
 self.addEventListener("fetch", (event) => {
   const url = event.request.url;
@@ -50,7 +50,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // HTMLだけは常に最新取得
+  //  HTMLは常に最新を取得
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request).catch(() => caches.match("/index.html"))
@@ -73,26 +73,26 @@ async function handleImageRequest(request) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(request);
 
-  // ① キャッシュあれば即返す（高速）
   if (cached) return cached;
 
-  // ② なければ取得して保存
   const response = await fetch(request);
   await cache.put(request, response.clone());
 
-  // ③ 上限超えたら古い画像削除
   const keys = await cache.keys();
   const imageKeys = keys.filter((req) =>
     req.url.includes("/images/")
   );
 
   if (imageKeys.length > MAX_IMAGE_ITEMS) {
-    await cache.delete(imageKeys[0]); // 一番古い削除
+    await cache.delete(imageKeys[0]);
   }
 
   return response;
 }
-// 更新ボタン対応（これ追加）
+
+// =======================
+// 更新ボタン対応
+// =======================
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
