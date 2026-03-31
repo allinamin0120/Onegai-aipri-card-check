@@ -5,7 +5,7 @@ import { cardsSP } from '../data/seriesSP.js';
 import { getOwned, isOwned, setOwned } from './storage.js';
 
 function getRarityValue(card) {
-  const r = card.rarity;
+  const r = String(card.rarity || "");
 
   if (r.includes("4")) return 4;
   if (r.includes("3")) return 3;
