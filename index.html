@@ -321,19 +321,18 @@ function toggle(id) {
   localStorage.setItem("owned", JSON.stringify(owned));
   render();
 }
-  function toggleFilter(type) {
+
+function toggleFilter(type) {
   const unowned = document.getElementById("onlyUnowned");
-  const owned = document.getElementById("onlyOwned");
+  const ownedCheck = document.getElementById("onlyOwned");
 
   if (type === "unowned" && unowned.checked) {
-    owned.checked = false;
+    ownedCheck.checked = false;
   }
 
-  if (type === "owned" && owned.checked) {
+  if (type === "owned" && ownedCheck.checked) {
     unowned.checked = false;
   }
-
-
 
   render();
 }
