@@ -50,7 +50,15 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // それ以外（HTML / JS / CSS）
+  // HTMLだけは常に最新取得
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match("/index.html"))
+    );
+    return;
+  }
+
+  // その他（JS / CSS）
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
