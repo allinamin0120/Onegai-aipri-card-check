@@ -93,7 +93,7 @@ window.openModal = (card) => {
     }
   };
 
-  document.getElementById("modalImg").src = card.img;
+  document.getElementById("modalImg").src = card.image;
   document.getElementById("modalText").textContent =
     "入手方法：" + (card.how || "不明");
 
