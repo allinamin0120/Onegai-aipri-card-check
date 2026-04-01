@@ -104,7 +104,12 @@ async function init() {
   }
 
   await loadParts();
-  await loadCardsFromSheet();
+
+  cards.length = 0;
+
+await loadSheet("おねがいアイプリ1だん");
+await loadSheet("スペシャル");
+
 
   loadFromURL();
   render();
