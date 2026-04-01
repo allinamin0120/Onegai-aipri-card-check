@@ -3,7 +3,7 @@ export const cards = [];
 
 import { getOwned, isOwned, setOwned } from './storage.js';
 
-let displayCount = 40;
+let displayCount = 100;
 
 function getRarityValue(card) {
   const r = String(card.rarity || "");
