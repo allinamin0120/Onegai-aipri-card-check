@@ -49,7 +49,7 @@ async function loadSheet(sheetName) {
   }
 
   // なければ取得
-  const url = `https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/${おねがいアイプリ1だん}`;
+  const url = `https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/${sheetName}`;
   const res = await fetch(url);
   const data = await res.json();
 
