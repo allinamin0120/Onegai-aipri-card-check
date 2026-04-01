@@ -1,4 +1,5 @@
 // render.js
+export const cards = [];
 
 import { cards1 } from '../data/series1.js';
 import { cardsSP } from '../data/seriesSP.js';
@@ -14,7 +15,6 @@ function getRarityValue(card) {
   return 0;
 }
 
-export const cards = [...cards1, ...cardsSP];
 
 export function render() {
   const owned = getOwned();
