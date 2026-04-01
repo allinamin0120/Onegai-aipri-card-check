@@ -15,7 +15,6 @@ function getRarityValue(card) {
   return 0;
 }
 
-
 export function render() {
   const owned = getOwned();
 
@@ -41,15 +40,14 @@ export function render() {
   let count = 0;
   let total = 0;
 
-cards.forEach((card, index) => {
-  if (index >= displayCount) return;
+  // ===== カード描画 =====
+  cards.forEach((card, index) => {
+    if (index >= displayCount) return;
 
-  const ownedFlag = !!owned[card.id];
-  
-    // 全体所持数カウント
+    const ownedFlag = !!owned[card.id];
+
     if (ownedFlag) countAll++;
 
-    // フィルター
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
 
     if (search) {
@@ -61,17 +59,15 @@ cards.forEach((card, index) => {
     if (onlyUnowned && ownedFlag) return;
     if (onlyOwned && !ownedFlag) return;
 
- // レア度フィルター
-if (rarityFilter !== "all") {
-  if (getRarityValue(card) !== Number(rarityFilter)) return;
-}
+    if (rarityFilter !== "all") {
+      if (getRarityValue(card) !== Number(rarityFilter)) return;
+    }
 
     total++;
 
     const div = document.createElement("div");
     div.className = "card";
 
-    // 👇 クリック処理（toggle完全排除）
     div.onclick = () => {
       if (card.series === "SP") {
         openModal(card);
@@ -81,20 +77,20 @@ if (rarityFilter !== "all") {
       }
     };
 
-    // 所持状態UI
     if (ownedFlag) {
       count++;
       div.classList.add("owned");
     }
 
-  div.innerHTML =
-  (card.image ? '<img src="' + card.image + '" loading="lazy">' : '') +
-  '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
-  '<div class="card-name">' + card.name + '</div>';
+    div.innerHTML =
+      (card.image ? `<img src="${card.image}" loading="lazy">` : "") +
+      `<div class="card-info">★${card.rarity} ${card.char}</div>` +
+      `<div class="card-name">${card.name}</div>`;
+
     list.appendChild(div);
   });
 
-  // 全体所持率
+  // ===== 全体所持率 =====
   const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
   document.getElementById("rate").textContent =
     `${rate}% (${countAll} / ${totalAll})`;
@@ -133,7 +129,8 @@ if (rarityFilter !== "all") {
     container.appendChild(div);
   });
 
-   const moreBtn = document.getElementById("loadMoreBtn");
+  // ===== もっと見るボタン制御 =====
+  const moreBtn = document.getElementById("loadMoreBtn");
 
   if (moreBtn) {
     if (displayCount >= cards.length) {
