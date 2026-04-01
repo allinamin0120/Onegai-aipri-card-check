@@ -37,19 +37,9 @@ async function loadParts() {
 // ===== スプシ読み込み =====
 async function loadCardsFromSheet() {
   const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/おねがいアイプリ1だん");
-  
-  if (!res.ok) {
-    console.error("スプシ取得失敗");
-    return;
-  }
-
   const data = await res.json();
-  console.log("取得データ:", data); // デバッグ用
 
-  if (!Array.isArray(data)) {
-    console.error("データ形式エラー:", data);
-    return;
-  }
+  cards.length = 0; 
 
   const newCards = data.map(row => ({
     id: row.id,
