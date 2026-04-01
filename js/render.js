@@ -68,7 +68,7 @@ export function render() {
       div.classList.add("owned");
     }
 
-    // ===== クリック処理（完全版）=====
+    // ===== クリック処理（最終版）=====
     div.onclick = () => {
       if (card.series === "SP") {
         openModal(card);
@@ -78,12 +78,20 @@ export function render() {
       const newState = !isOwned(card.id);
       setOwned(card.id, newState);
 
-      // 見た目だけ更新（超軽量）
+      // 見た目更新（高速）
       div.classList.toggle("owned", newState);
 
-      // 数値更新（render使わない）
+      // 数値更新
       updateStats();
       updateSeriesStats();
+
+      // 👇 フィルターON時だけ再描画（これ追加）
+      const onlyUnowned = document.getElementById("onlyUnowned").checked;
+      const onlyOwned = document.getElementById("onlyOwned").checked;
+
+      if (onlyUnowned || onlyOwned) {
+        render();
+      }
     };
 
     // ===== HTML =====
@@ -95,7 +103,7 @@ export function render() {
     list.appendChild(div);
   });
 
-  // 初回だけ数値表示
+  // 初回表示
   updateStats();
   updateSeriesStats();
 }
