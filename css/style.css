@@ -17,21 +17,27 @@ body {
   background: white;
   padding: 10px;
   border-radius: 12px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   margin: 0;
 
-  /* 安定化 */
+  /* ★ 安定の核 */
   border: 3px solid transparent;
   box-sizing: border-box;
   overflow: hidden;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  /* ★ ここ重要：transition削除 */
+  /* transition: 0.2s; ←消した */
 
+  /* タップ安定 */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+
+  /* GPU安定化 */
+  will-change: transform;
 }
 
 /* 所持済み */
@@ -41,21 +47,26 @@ body {
   box-shadow: 0 0 12px gold;
 }
 
-/* 画像 */
+/* ===== 画像 ===== */
 .card img {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   display: block;
+
   background: #f2f2f2;
+
+  /* ★ モバイルちらつき防止 */
+  transform: translateZ(0);
 }
 
-/* タップ時の変形防止 */
+/* タップ時の変形完全禁止 */
 .card:active {
-  transform: none;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
-/* テキスト */
+/* ===== テキスト ===== */
 .card-name {
   font-size: 12px;
   text-align: center;
@@ -68,7 +79,7 @@ body {
   font-weight: bold;
 }
 
-/* 入力系 */
+/* ===== 入力 ===== */
 select, input {
   margin: 5px 5px 10px 0;
   padding: 5px;
@@ -129,7 +140,7 @@ select, input {
   margin-left: 50px;
 }
 
-/* overlay */
+/* ===== overlay ===== */
 #overlay {
   position: fixed;
   top: 0;
@@ -149,7 +160,7 @@ select, input {
   backdrop-filter: blur(6px);
 }
 
-/* 弾ステータス */
+/* ===== 弾ステータス ===== */
 .series-stats {
   display: flex;
   gap: 10px;
