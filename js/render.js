@@ -84,10 +84,9 @@ if (rarityFilter !== "all") {
     }
 
     div.innerHTML =
-      (card.img ? '<img src="' + card.img + '">' : '') +
-      '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
-      '<div class="card-name">' + card.name + '</div>';
-
+  (card.image ? '<img src="' + card.image + '">' : '') +
+  '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
+  '<div class="card-name">' + card.name + '</div>';
     list.appendChild(div);
   });
 
