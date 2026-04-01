@@ -35,6 +35,34 @@ async function loadParts() {
 }
 
 // ===== スプシ読み込み =====
+async function loadSheet(sheetName) {
+  const res = await fetch(`https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/${sheetName}`);
+  
+  if (!res.ok) {
+    console.error("取得失敗:", sheetName);
+    return;
+  }
+
+  const data = await res.json();
+
+  if (!Array.isArray(data)) {
+    console.error("データエラー:", sheetName, data);
+    return;
+  }
+
+  const newCards = data.map(row => ({
+    id: row.id,
+    name: row.name,
+    char: row.char,
+    rarity: Number(row.rarity) || row.rarity,
+    series: row.series,
+    image: row.image,
+    how: row.how || "",
+    type: row.type || ""
+  }));
+
+  cards.push(...newCards);
+}
 async function loadCardsFromSheet() {
   const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/おねがいアイプリ1だん");
   const data = await res.json();
