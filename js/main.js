@@ -35,54 +35,29 @@ async function loadParts() {
 }
 
 // ===== スプシ読み込み =====
+const CACHE_TIME = 1000 * 60 * 60; // 1時間
+
 async function loadSheet(sheetName) {
-  const res = await fetch(`https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/${sheetName}`);
-  
-  if (!res.ok) {
-    console.error("取得失敗:", sheetName);
-    return;
+  const CACHE_KEY = "cards_" + sheetName;
+
+  const cache = localStorage.getItem(CACHE_KEY);
+  const time = localStorage.getItem(CACHE_KEY + "_time");
+
+  // キャッシュがあれば使う
+  if (cache && time && Date.now() - time < CACHE_TIME) {
+    return JSON.parse(cache);
   }
 
+  // なければ取得
+  const url = `https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/${おねがいアイプリ1だん}`;
+  const res = await fetch(url);
   const data = await res.json();
 
-  console.log(data[0]);
+  // 保存
+  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  localStorage.setItem(CACHE_KEY + "_time", Date.now());
 
-  if (!Array.isArray(data)) {
-    console.error("データエラー:", sheetName, data);
-    return;
-  }
-
-  const newCards = data.map(row => ({
-    id: row.id,
-    name: row.name,
-    char: row.char,
-    rarity: Number(row.rarity) || row.rarity,
-    series: row.series,
-    image: row.image,
-    how: row.how || "",
-    type: row.type || ""
-  }));
-
-  cards.push(...newCards);
-}
-async function loadCardsFromSheet() {
-  const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/おねがいアイプリ1だん");
-  const data = await res.json();
-
-  cards.length = 0; 
-
-  const newCards = data.map(row => ({
-    id: row.id,
-    name: row.name,
-    char: row.char,
-    rarity: Number(row.rarity),
-    series: row.series,
-    image: row.image,
-    how: row.how || "",
-    type: row.type || ""
-  }));
-
-  cards.push(...newCards);
+  return data;
 }
 
 // ===== 初期処理 =====
@@ -107,11 +82,14 @@ async function init() {
 
   await loadParts();
 
-  cards.length = 0;
+cards.length = 0;
 
-await loadSheet("おねがいアイプリ1だん");
-await loadSheet("スペシャル");
+const [sheet1, sheet2] = await Promise.all([
+  loadSheet("おねがいアイプリ1だん"),
+  loadSheet("スペシャル")
+]);
 
+cards.push(...sheet1, ...sheet2);
 
   loadFromURL();
   render();
