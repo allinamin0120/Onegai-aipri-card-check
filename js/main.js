@@ -54,8 +54,25 @@ async function init() {
     `;
     return;
   }
+async function loadCardsFromSheet() {
+  const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/シート1");
+  const data = await res.json();
 
+  const newCards = data.map(row => ({
+    id: row.id,
+    name: row.name,
+    char: row.char,
+    rarity: Number(row.rarity),
+    series: row.series,
+    image: row.image,
+    how: row.how || "",
+    type: row.type || ""
+  }));
+
+  cards.push(...newCards);
+}
   await loadParts();
+  await loadCardsFromSheet();
   loadFromURL();
   render();
   setupUI();
