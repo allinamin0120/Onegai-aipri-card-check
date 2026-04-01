@@ -208,4 +208,33 @@ select, input {
 #search {
   max-width: 300px;
   width: 100%;
+  /* ===== カード画像（最重要） ===== */
+.card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== カード全体 ===== */
+.card {
+  overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent; /* タップの青い枠消す */
+}
+
+/* ===== タップ時の違和感防止 ===== */
+.card:active {
+  transform: scale(0.98);
+}
+
+/* ===== スクロール安定 ===== */
+html, body {
+  overscroll-behavior: none;
+}
+
+/* ===== 画像読み込み中のガタつき防止 ===== */
+.card img {
+  background: #f2f2f2;
+}
 }
