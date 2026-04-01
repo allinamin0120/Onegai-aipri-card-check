@@ -1,11 +1,18 @@
 // main.js
 
-const MAINTENANCE = false; // trueでメンテ画面falseで開く
+const MAINTENANCE = false;
 
 function isAdmin() {
   const params = new URLSearchParams(location.search);
   return params.get("admin") === "0120";
 }
+
+// ===== 他JS読み込み =====
+import { render, cards } from './render.js'; 
+import { setupUI } from './ui.js';
+import { loadFromURL } from './storage.js';
+
+window.render = render;
 
 // ===== パーツ読み込み =====
 async function loadParts() {
@@ -27,10 +34,22 @@ async function loadParts() {
   await load("modalArea", "../parts/modal.html");
 }
 
-// ===== スプシ読み込み追加 =====
+// ===== スプシ読み込み =====
 async function loadCardsFromSheet() {
   const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/おねがいアイプリ1だん");
+  
+  if (!res.ok) {
+    console.error("スプシ取得失敗");
+    return;
+  }
+
   const data = await res.json();
+  console.log("取得データ:", data); // デバッグ用
+
+  if (!Array.isArray(data)) {
+    console.error("データ形式エラー:", data);
+    return;
+  }
 
   const newCards = data.map(row => ({
     id: row.id,
@@ -45,13 +64,6 @@ async function loadCardsFromSheet() {
 
   cards.push(...newCards);
 }
-
-// ===== 他JS読み込み =====
-import { render } from './render.js';
-import { setupUI } from './ui.js';
-import { loadFromURL } from './storage.js';
-
-window.render = render;
 
 // ===== 初期処理 =====
 async function init() {
@@ -74,7 +86,6 @@ async function init() {
   }
 
   await loadParts();
-
   await loadCardsFromSheet();
 
   loadFromURL();
