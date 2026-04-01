@@ -98,7 +98,22 @@ cards.push(...sheet1, ...sheet2);
 
 init();
 
-window.loadMore = function () {
-  displayCount += 100;
-  render();
-};
+let loading = false;
+
+window.addEventListener("scroll", () => {
+  if (loading) return;
+
+  const scrollY = window.scrollY;
+  const innerHeight = window.innerHeight;
+  const fullHeight = document.body.offsetHeight;
+
+  if (scrollY + innerHeight >= fullHeight - 200) {
+    loading = true;
+
+    window.dispatchEvent(new Event("loadMore"));
+
+    setTimeout(() => {
+      loading = false;
+    }, 300);
+  }
+});
