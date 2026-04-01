@@ -68,14 +68,26 @@ export function render() {
     const div = document.createElement("div");
     div.className = "card";
 
-    div.onclick = () => {
-      if (card.series === "SP") {
-        openModal(card);
-      } else {
-        setOwned(card.id, !isOwned(card.id));
-        render();
-      }
-    };
+  div.onclick = () => {
+  if (card.series === "SP") {
+    openModal(card);
+  } else {
+    const newState = !isOwned(card.id);
+    setOwned(card.id, newState);
+
+    // 👇 ① 先に見た目だけ更新
+    if (newState) {
+      div.classList.add("owned");
+    } else {
+      div.classList.remove("owned");
+    }
+
+    // 👇 ② 少し遅らせてrender
+    setTimeout(() => {
+      render();
+    }, 50);
+  }
+};
 
     if (ownedFlag) {
       count++;
