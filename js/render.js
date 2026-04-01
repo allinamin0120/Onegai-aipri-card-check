@@ -5,6 +5,7 @@ import { getOwned, isOwned, setOwned } from './storage.js';
 
 let displayCount = 100;
 
+// レア度変換
 function getRarityValue(card) {
   const r = String(card.rarity || "");
 
@@ -15,6 +16,7 @@ function getRarityValue(card) {
   return 0;
 }
 
+// ===== メイン描画 =====
 export function render() {
   const owned = getOwned();
 
@@ -37,15 +39,11 @@ export function render() {
   let totalAll = cards.length;
   let countAll = 0;
 
-  let count = 0;
-  let total = 0;
-
   // ===== カード描画 =====
   cards.forEach((card, index) => {
     if (index >= displayCount) return;
 
     const ownedFlag = !!owned[card.id];
-
     if (ownedFlag) countAll++;
 
     if (seriesFilter !== "all" && card.series !== seriesFilter) return;
@@ -63,31 +61,32 @@ export function render() {
       if (getRarityValue(card) !== Number(rarityFilter)) return;
     }
 
-    total++;
-
     const div = document.createElement("div");
     div.className = "card";
 
-div.onclick = () => {
-  if (card.series === "SP") {
-    openModal(card);
-  } else {
-    const newState = !isOwned(card.id);
-    setOwned(card.id, newState);
-
-    // 見た目だけ更新
-    if (newState) {
-      div.classList.add("owned");
-    } else {
-      div.classList.remove("owned");
-    }
-  }
-};
     if (ownedFlag) {
-      count++;
       div.classList.add("owned");
     }
 
+    // ===== クリック処理（完全版）=====
+    div.onclick = () => {
+      if (card.series === "SP") {
+        openModal(card);
+        return;
+      }
+
+      const newState = !isOwned(card.id);
+      setOwned(card.id, newState);
+
+      // 見た目だけ更新（超軽量）
+      div.classList.toggle("owned", newState);
+
+      // 数値更新（render使わない）
+      updateStats();
+      updateSeriesStats();
+    };
+
+    // ===== HTML =====
     div.innerHTML =
       (card.image ? `<img src="${card.image}" loading="lazy">` : "") +
       `<div class="card-info">★${card.rarity} ${card.char}</div>` +
@@ -96,12 +95,31 @@ div.onclick = () => {
     list.appendChild(div);
   });
 
-  // ===== 全体所持率 =====
-  const rate = totalAll ? Math.round((countAll / totalAll) * 100) : 0;
-  document.getElementById("rate").textContent =
-    `${rate}% (${countAll} / ${totalAll})`;
+  // 初回だけ数値表示
+  updateStats();
+  updateSeriesStats();
+}
 
-  // ===== 弾ごとの所持率 =====
+// ===== 全体所持率 =====
+function updateStats() {
+  const owned = getOwned();
+
+  let total = cards.length;
+  let count = 0;
+
+  cards.forEach(card => {
+    if (owned[card.id]) count++;
+  });
+
+  const rate = total ? Math.round((count / total) * 100) : 0;
+
+  document.getElementById("rate").textContent =
+    `${rate}% (${count} / ${total})`;
+}
+
+// ===== 弾ごと =====
+function updateSeriesStats() {
+  const owned = getOwned();
   const seriesStats = {};
 
   cards.forEach(card => {
@@ -126,7 +144,7 @@ div.onclick = () => {
     const { total, owned } = seriesStats[series];
     const percent = total ? Math.round((owned / total) * 100) : 0;
 
-    const label = seriesLabel[series] || series;
+    const label = series === "1弾" ? "1だん" : "スペシャル";
 
     const div = document.createElement("div");
     div.className = "series-stat";
@@ -135,9 +153,3 @@ div.onclick = () => {
     container.appendChild(div);
   });
 }
-
-//  無限スクロール用
-window.addEventListener("loadMore", () => {
-  displayCount += 100;
-  render();
-});
