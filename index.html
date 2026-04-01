@@ -9,12 +9,8 @@
 <link rel="apple-touch-icon" href="images/mc_icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>おねがいアイプリカードコレクション</title>
-
-
 </head>
 
 <body>
@@ -32,20 +28,22 @@
 
   <div id="filterArea"></div>
 
+  <!-- カード -->
   <div id="cardList"></div>
 
+  <!-- 👇ここにボタン -->
+  <button id="loadMoreBtn" onclick="loadMore()">
+    もっと見る
+  </button>
+
+  <!-- 更新情報 -->
   <div id="updateArea"></div>
 
 </div>
-  
-<div id="modalArea"></div>
-  
-<script type="module" src="js/main.js"></script>
-  <div id="cardList"></div>
 
-<button id="loadMoreBtn" onclick="loadMore()">
-  もっと見る
-</button>
+<div id="modalArea"></div>
+
+<script type="module" src="js/main.js"></script>
 
 </body>
 </html>
