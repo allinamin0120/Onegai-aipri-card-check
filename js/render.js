@@ -68,27 +68,26 @@ export function render() {
     const div = document.createElement("div");
     div.className = "card";
 
-  div.onclick = () => {
+div.onclick = () => {
   if (card.series === "SP") {
     openModal(card);
   } else {
     const newState = !isOwned(card.id);
     setOwned(card.id, newState);
 
-    // 👇 ① 先に見た目だけ更新
+    // 👇 ① 先に見た目だけ変える（重要）
     if (newState) {
       div.classList.add("owned");
     } else {
       div.classList.remove("owned");
     }
 
-    // 👇 ② 少し遅らせてrender
+    // 👇 ② 少し遅らせて再描画（ここ追加）
     setTimeout(() => {
       render();
-    }, 50);
+    }, 300);
   }
 };
-
     if (ownedFlag) {
       count++;
       div.classList.add("owned");
