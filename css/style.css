@@ -223,11 +223,6 @@ select, input {
   -webkit-tap-highlight-color: transparent; /* タップの青い枠消す */
 }
 
-/* ===== タップ時の違和感防止 ===== */
-.card:active {
-  transform: scale(0.98);
-}
-
 /* ===== 画像読み込み中のガタつき防止 ===== */
 .card img {
   background: #f2f2f2;
