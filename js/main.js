@@ -27,33 +27,7 @@ async function loadParts() {
   await load("modalArea", "../parts/modal.html");
 }
 
-
-// ===== 他JS読み込み =====
-import { render } from './render.js';
-import { setupUI } from './ui.js';
-import { loadFromURL } from './storage.js';
-
-window.render = render;
-
-// ===== 初期処理 =====
-async function init() {
-
- if (MAINTENANCE && !isAdmin()) {
-    document.body.innerHTML = `
-      <div style="
-        display:flex;
-        height:100vh;
-        justify-content:center;
-        align-items:center;
-        flex-direction:column;
-        font-family:sans-serif;
-      ">
-        <h1>メンテナンス中</h1>
-        <p>しばらくお待ちください</p>
-      </div>
-    `;
-    return;
-  }
+// ===== スプシ読み込み追加 =====
 async function loadCardsFromSheet() {
   const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/シート1");
   const data = await res.json();
@@ -71,8 +45,38 @@ async function loadCardsFromSheet() {
 
   cards.push(...newCards);
 }
+
+// ===== 他JS読み込み =====
+import { render } from './render.js';
+import { setupUI } from './ui.js';
+import { loadFromURL } from './storage.js';
+
+window.render = render;
+
+// ===== 初期処理 =====
+async function init() {
+
+  if (MAINTENANCE && !isAdmin()) {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        height:100vh;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        font-family:sans-serif;
+      ">
+        <h1>メンテナンス中</h1>
+        <p>しばらくお待ちください</p>
+      </div>
+    `;
+    return;
+  }
+
   await loadParts();
+
   await loadCardsFromSheet();
+
   loadFromURL();
   render();
   setupUI();
