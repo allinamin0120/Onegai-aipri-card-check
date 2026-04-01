@@ -5,6 +5,16 @@
   placeholder="検索" 
   oninput="render()"
 >
+ <select 
+    id="rarityFilter" 
+    onchange="render()"
+  >
+    <option value="all">すべて</option>
+    <option value="2">☆2</option>
+    <option value="3">☆3</option>
+    <option value="4">☆4</option>
+  </select>
+</div>
 
 <!-- 所持フィルター -->
 <div class="checkbox-row">
@@ -27,14 +37,3 @@
   </label>
 </div>
 
-<!-- レア度フィルター -->
-<select 
-  id="rarityFilter" 
-  onchange="render()" 
-  class="filter-select"
->
-  <option value="all">レア度：すべて</option>
-  <option value="2">☆2</option>
-  <option value="3">☆3</option>
-  <option value="4">☆4</option>
-</select>
