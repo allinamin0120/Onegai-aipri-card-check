@@ -45,6 +45,8 @@ async function loadSheet(sheetName) {
 
   const data = await res.json();
 
+  console.log(data[0]);
+
   if (!Array.isArray(data)) {
     console.error("データエラー:", sheetName, data);
     return;
