@@ -3,6 +3,8 @@ export const cards = [];
 
 import { getOwned, isOwned, setOwned } from './storage.js';
 
+let displayCount = 100;
+
 function getRarityValue(card) {
   const r = String(card.rarity || "");
 
@@ -39,9 +41,11 @@ export function render() {
   let count = 0;
   let total = 0;
 
-  cards.forEach(card => {
-    const ownedFlag = !!owned[card.id];
+cards.forEach((card, index) => {
+  if (index >= displayCount) return;
 
+  const ownedFlag = !!owned[card.id];
+  
     // 全体所持数カウント
     if (ownedFlag) countAll++;
 
@@ -128,4 +132,15 @@ if (rarityFilter !== "all") {
 
     container.appendChild(div);
   });
+
+   const moreBtn = document.getElementById("loadMoreBtn");
+
+  if (moreBtn) {
+    if (displayCount >= cards.length) {
+      moreBtn.style.display = "none";
+    } else {
+      moreBtn.style.display = "block";
+    }
+  }
+}
 }
