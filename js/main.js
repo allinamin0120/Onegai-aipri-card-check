@@ -97,3 +97,8 @@ cards.push(...sheet1, ...sheet2);
 }
 
 init();
+
+window.loadMore = function () {
+  displayCount += 100;
+  render();
+};
