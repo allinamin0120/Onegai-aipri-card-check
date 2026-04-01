@@ -75,18 +75,12 @@ div.onclick = () => {
     const newState = !isOwned(card.id);
     setOwned(card.id, newState);
 
-    // 👇 即UI更新（これ大事）
+    // 見た目だけ更新
     if (newState) {
       div.classList.add("owned");
     } else {
       div.classList.remove("owned");
     }
-
-    // 👇 renderを遅らせる（ここ重要）
-    clearTimeout(window._renderTimer);
-    window._renderTimer = setTimeout(() => {
-      render();
-    }, 500);
   }
 };
     if (ownedFlag) {
