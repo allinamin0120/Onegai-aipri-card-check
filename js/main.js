@@ -29,7 +29,7 @@ async function loadParts() {
 
 // ===== スプシ読み込み追加 =====
 async function loadCardsFromSheet() {
-  const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/シート1");
+  const res = await fetch("https://opensheet.elk.sh/1LF5BUzBjZNjIoXPfV82kE1amqrfp6qV39RA4n8OUZ1E/おねがいアイプリ1だん");
   const data = await res.json();
 
   const newCards = data.map(row => ({
