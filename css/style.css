@@ -228,11 +228,6 @@ select, input {
   transform: scale(0.98);
 }
 
-/* ===== スクロール安定 ===== */
-html, body {
-  overscroll-behavior: none;
-}
-
 /* ===== 画像読み込み中のガタつき防止 ===== */
 .card img {
   background: #f2f2f2;
