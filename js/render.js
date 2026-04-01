@@ -83,8 +83,8 @@ if (rarityFilter !== "all") {
       div.classList.add("owned");
     }
 
-    div.innerHTML =
-  (card.image ? '<img src="' + card.image + '">' : '') +
+  div.innerHTML =
+  (card.image ? '<img src="' + card.image + '" loading="lazy">' : '') +
   '<div class="card-info">★' + card.rarity + ' ' + card.char + '</div>' +
   '<div class="card-name">' + card.name + '</div>';
     list.appendChild(div);
