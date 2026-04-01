@@ -128,15 +128,10 @@ export function render() {
 
     container.appendChild(div);
   });
-
-  // ===== もっと見るボタン制御 =====
-  const moreBtn = document.getElementById("loadMoreBtn");
-
-  if (moreBtn) {
-    if (displayCount >= cards.length) {
-      moreBtn.style.display = "none";
-    } else {
-      moreBtn.style.display = "block";
-    }
-  }
 }
+
+//  無限スクロール用
+window.addEventListener("loadMore", () => {
+  displayCount += 100;
+  render();
+});
