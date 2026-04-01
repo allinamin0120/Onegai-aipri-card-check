@@ -24,27 +24,26 @@ body {
   width: 100%;
   margin: 0;
 
-  /* ★ 安定の核 */
+  /* ★ サイズ安定 */
   border: 3px solid transparent;
   box-sizing: border-box;
   overflow: hidden;
 
-  /* ★ ここ重要：transition削除 */
-  /* transition: 0.2s; ←消した */
-
-  /* タップ安定 */
+  /* ★ iOS安定 */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  /* GPU安定化 */
-  will-change: transform;
+  /* ★ 重要：GPU系は全部禁止 */
+  /* will-change: none; */
+  /* transform: none; */
 }
 
-/* 所持済み */
+/* ===== 所持済み ===== */
 .card.owned {
   border: 3px solid gold;
   background: #fff8dc;
-  box-shadow: 0 0 12px gold;
+
+  /* ★ box-shadow削除（iOSバグ原因） */
 }
 
 /* ===== 画像 ===== */
@@ -56,11 +55,11 @@ body {
 
   background: #f2f2f2;
 
-  /* ★ モバイルちらつき防止 */
-  transform: translateZ(0);
+  /* ★ GPU系禁止 */
+  transform: none;
 }
 
-/* タップ時の変形完全禁止 */
+/* ===== タップ時安定 ===== */
 .card:active {
   transform: none !important;
   opacity: 1 !important;
@@ -85,13 +84,13 @@ select, input {
   padding: 5px;
 }
 
-/* 検索 */
+/* ===== 検索 ===== */
 #search {
   max-width: 300px;
   width: 100%;
 }
 
-/* フィルター */
+/* ===== フィルター ===== */
 .filter-top {
   display: flex;
   gap: 8px;
