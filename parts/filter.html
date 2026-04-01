@@ -1,11 +1,13 @@
-<!-- 検索 -->
-<input 
-  type="text" 
-  id="search" 
-  placeholder="検索" 
-  oninput="render()"
->
- <select 
+<!-- 検索＋レア度 -->
+<div class="filter-top">
+  <input 
+    type="text" 
+    id="search" 
+    placeholder="検索" 
+    oninput="render()"
+  >
+
+  <select 
     id="rarityFilter" 
     onchange="render()"
   >
